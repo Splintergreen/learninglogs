@@ -1,0 +1,27 @@
+{% load static %}
+<!DOCTYPE HTML>
+<html>
+	<title>
+		{% block title %}
+		{% endblock title%}
+	  </title>
+	{% include 'includes/head.html' %}
+	<body class="is-preload">
+
+		<!-- Nav -->
+		{% include 'includes/nav.html' %}
+
+		<!-- Home -->
+		{% block content %}
+		{% endblock %}
+		{% comment %} {% include 'home.html' %}
+		
+
+		<!-- Portfolio -->
+		{% include 'portfolio.html' %} {% endcomment %}
+		
+		
+		{% include 'includes/footer.html' %}
+
+	</body>
+</html>

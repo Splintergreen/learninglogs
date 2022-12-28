@@ -1,0 +1,16 @@
+{% extends 'index.html' %}
+{% load static %}
+
+{% block content %}
+
+{% for log in logs %}
+<div class="post">
+  <p class="meta"><span class="date">{{ log.date_added|date:"d E Y" }}</span> Опубликовано пользователем <a href="#">{{ log.owner.get_username }}</a></p>
+  <h2 class="title"><a href="{% url 'logs:log' log.id %}">Ссылка на пост </a></h2>
+  <div class="entry">
+     <p>{{ log.text }}</p>
+  </div>
+</div>
+{% endfor %}
+
+{% endblock %}
