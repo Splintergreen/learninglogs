@@ -1,0 +1,25 @@
+{% load static %}
+<h1><a href="{% url "logs:index" %}">Главная</a></h1>
+<nav class="links">
+	<ul>
+		<li><a href={% url "logs:groups_list" %}>Заметки</a></li>
+		{% comment %} <li><a href="#">Ipsum</a></li>
+		<li><a href="#">Feugiat</a></li> {% endcomment %}
+		<li><a href="#">Ссылки на документацию</a></li>
+		<li><a href="#">Мои заметки</a></li>
+		<li><a href="#">Войти</a>
+	</ul>
+</nav>
+<nav class="main">
+	<ul>
+		<li class="search">
+			<a class="fa-search" href="#search">Search</a>
+			<form id="search" method="get" action="#">
+				<input type="text" name="query" placeholder="Search" />
+			</form>
+		</li>
+		<li class="menu">
+			<a class="fa-bars" href="#menu">Menu</a>
+		</li>
+	</ul>
+</nav>

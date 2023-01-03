@@ -18,7 +18,9 @@ DEBUG = True
 
 ALLOWED_HOSTS = []
 
-
+LOGIN_URL = 'users:login'
+LOGIN_REDIRECT_URL = 'logs:index'
+# LOGOUT_REDIRECT_URL = 'posts:index'
 # Application definition
 
 INSTALLED_APPS = [
@@ -29,6 +31,10 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'logs.apps.LogsConfig',
+    'users.apps.UsersConfig',
+    'core.apps.CoreConfig',
+    'sass_processor',
+    # 'django_sass',
 ]
 
 MIDDLEWARE = [
@@ -54,12 +60,16 @@ TEMPLATES = [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
+                'core.context_processors.mini_posts.get_mini_posts',
             ],
         },
     },
 ]
 
 WSGI_APPLICATION = 'learninglogs.wsgi.application'
+
+# yatube/settings.py
+
 
 
 # Database
@@ -83,7 +93,11 @@ DATABASES = {
 }
 
 STATICFILES_DIRS = (os.path.join(BASE_DIR, 'static'),)
-
+STATICFILES_FINDERS = [
+    'django.contrib.staticfiles.finders.AppDirectoriesFinder',
+    'sass_processor.finders.CssFinder',
+]
+SASS_PROCESSOR_ROOT = os.path.join(BASE_DIR, 'static/assets/sass')
 # Password validation
 # https://docs.djangoproject.com/en/4.1/ref/settings/#auth-password-validators
 

@@ -1,0 +1,253 @@
+<!-- templates/users/signup.html -->
+{% extends "index.html" %}
+{% block title %}Зарегистрироваться{% endblock %}
+{% block content %}
+    {% comment %} <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;500;600&display=swap" rel="stylesheet"> {% endcomment %}
+    <!--Stylesheet-->
+    <style media="screen">
+      *,
+*:before,
+*:after{
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+}
+body{
+    background-color: #080710;
+}
+.background{
+    width: 430px;
+    height: 520px;
+    position: absolute;
+    transform: translate(-50%,-50%);
+    left: 50%;
+    top: 50%;
+}
+.background .shape{
+    height: 200px;
+    width: 200px;
+    position: absolute;
+    border-radius: 50%;
+}
+.shape:first-child{
+    background: linear-gradient(
+        #1845ad,
+        #23a2f6
+    );
+    left: -80px;
+    top: -80px;
+}
+.shape:last-child{
+    background: linear-gradient(
+        to right,
+        #ff512f,
+        #f09819
+    );
+    right: -30px;
+    bottom: -80px;
+}
+form{
+    height: 600px;
+    width: 400px;
+    background-color: rgba(255,255,255,0.13);
+    position: absolute;
+    transform: translate(-50%,-50%);
+    top: 50%;
+    left: 50%;
+    border-radius: 10px;
+    backdrop-filter: blur(10px);
+    border: 2px solid rgba(255,255,255,0.1);
+    box-shadow: 0 0 40px rgba(8,7,16,0.6);
+    padding: 50px 35px;
+}
+form *{
+    font-family: 'Poppins',sans-serif;
+    color: #FFFFFF;
+    letter-spacing: 0.5px;
+    outline: none;
+    border: none;
+}
+form h3{
+    font-size: 32px;
+    font-weight: 500;
+    line-height: 42px;
+    
+    text-align: center;
+}
+
+label{
+    display: block;
+    margin-top: 30px;
+    font-size: 16px;
+    font-weight: 500;
+}
+input{
+    display: block;
+    height: 50px;
+    width: 100%;
+    background-color: rgba(255,255,255,0.07);
+    border-radius: 3px;
+    padding: 0 10px;
+    margin-top: 8px;
+    font-size: 14px;
+    font-weight: 300;
+}
+::placeholder{
+    color: #e5e5e5;
+}
+button{
+    margin-top: 50px;
+    width: 100%;
+    background-color: #ffffff;
+    color: #080710;
+    padding: 15px 0;
+    font-size: 18px;
+    font-weight: 600;
+    border-radius: 5px;
+    cursor: pointer;
+}
+.social{
+  margin-top: 30px;
+  display: flex;
+}
+.social div{
+  background: red;
+  width: 150px;
+  border-radius: 3px;
+  padding: 5px 10px 10px 5px;
+  background-color: rgba(255,255,255,0.27);
+  color: #eaf0fb;
+  text-align: center;
+}
+.social div:hover{
+  background-color: rgba(255,255,255,0.47);
+}
+.social .fb{
+  margin-left: 25px;
+}
+.social i{
+  margin-right: 4px;
+}
+
+    </style>
+{% comment %} </head> {% endcomment %}
+{% comment %} <body> {% endcomment %}
+    {% comment %} <div class="background">
+        <div class="shape"></div>
+        <div class="shape"></div>
+    </div> {% endcomment %}
+<form>
+    <div class="card">
+        <div class="card-header">
+            <h3>Зарегистрироваться</h3>
+          </div>
+        {% comment %} <h3>Зарегистрироваться</h3> {% endcomment %}
+        <div class="card-body">
+            {# Этот блок будет показан, если в форме есть ошибки #}
+            {% if form.errors %}
+              {% for field in form %}
+                {% for error in field.errors %}            
+                  <div class="alert alert-danger">
+                    {{ error|escape }}
+                  </div>
+                {% endfor %}
+              {% endfor %}
+              {% for error in form.non_field_errors %}
+                <div class="alert alert-danger">
+                  {{ error|escape }}
+                </div>
+              {% endfor %}
+            {% endif %}
+        <form method="post" action="{% url 'users:signup' %}">
+            {% csrf_token %}
+            {% for field in form %}
+            {% comment %} <div class="form-group row my-3 p-3"> {% endcomment %}
+              <label for="{{ field.id_for_label }}">
+                {{ field.label }}
+                {% if field.field.required %}
+                  <span class="required text-danger">*</span>
+                {% endif %}
+              </label>    
+              {{ field }}
+              {% comment %} {% if field.help_text %}
+                <small id="{{ field.id_for_label }}-help" class="form-text text-muted">
+                  {{ field.help_text|safe }}
+                </small>
+              {% endif %} {% endcomment %}
+            {% comment %} </div> {% endcomment %}
+            {% endfor %}
+        </div>
+        {% comment %} <label for="username">Username</label>
+        <input type="text" placeholder="Email or Phone" id="username">
+
+        <label for="password">Password</label>
+        <input type="password" placeholder="Password" id="password"> {% endcomment %}
+
+        <button>Log In</button>
+        {% comment %} <div class="social">
+          <div class="go"><i class="fab fa-google"></i>  Google</div>
+          <div class="fb"><i class="fab fa-facebook"></i>  Facebook</div>
+        </div> {% endcomment %}
+    </div>
+    </form>
+{% comment %} </body> {% endcomment %}
+
+
+{% endblock %}
+
+
+{% comment %} 
+  <div class="row justify-content-center">
+    <div class="col-md-8 p-5">
+      <div class="card">
+        <div class="card-header">
+          Зарегистрироваться
+        </div>
+        <div class="card-body">
+          {# Этот блок будет показан, если в форме есть ошибки #}
+          {% if form.errors %}
+            {% for field in form %}
+              {% for error in field.errors %}            
+                <div class="alert alert-danger">
+                  {{ error|escape }}
+                </div>
+              {% endfor %}
+            {% endfor %}
+            {% for error in form.non_field_errors %}
+              <div class="alert alert-danger">
+                {{ error|escape }}
+              </div>
+            {% endfor %}
+          {% endif %}
+
+            <form method="post" action="{% url 'users:signup' %}">
+              {% csrf_token %}
+              {% for field in form %}
+              <div class="form-group row my-3 p-3">
+                <label for="{{ field.id_for_label }}">
+                  {{ field.label }}
+                  {% if field.field.required %}
+                    <span class="required text-danger">*</span>
+                  {% endif %}
+                </label>    
+                {{ field }}
+                {% if field.help_text %}
+                  <small id="{{ field.id_for_label }}-help" class="form-text text-muted">
+                    {{ field.help_text|safe }}
+                  </small>
+                {% endif %}
+              </div>
+              {% endfor %}
+              <div class="col-md-6 offset-md-4">
+                <button type="submit" class="btn btn-primary">
+                  Зарегистрироваться
+                </button>
+              </div>
+            </form>
+          </div> <!-- card body -->
+        </div> <!-- card -->
+      </div> <!-- col -->
+  </div> <!-- row -->
+{% endblock %} {% endcomment %}

@@ -1,0 +1,54 @@
+{% load static %}
+{% load sass_tags %}
+<!DOCTYPE HTML>
+<html>
+	<head>
+		<title>
+			{% block title %}{% endblock title%}
+		</title>
+		{% include 'includes/head.html' %}
+	</head>
+	<body class="single is-preload">
+
+		<!-- Wrapper -->
+			<div id="wrapper">
+
+				<!-- Header -->
+					<header id="header">
+						{% include 'includes/header.html' %}
+					</header>
+
+				<!-- Menu -->
+					<section id="menu">
+
+						{% include 'includes/menu.html' %}
+
+					</section>
+
+				<!-- Main -->
+					<div id="main">
+
+						<!-- Post -->
+							<article class="post">
+								{% block current_post %}
+								{% endblock %}
+							</article>
+
+					</div>
+
+				<!-- Footer -->
+					<section id="footer">
+						{% include 'includes/footer.html' %}
+					</section>
+
+			</div>
+
+		<!-- Scripts -->
+			<script src="{% static 'assets/js/jquery.min.js' %}"></script>
+			<script src="{% static 'assets/js/browser.min.js' %}"></script>
+			<script src="{% static 'assets/js/breakpoints.min.js' %}"></script>
+			<script src="{% static 'assets/js/util.js' %}"></script>
+			<script src="{% static 'assets/js/main.js' %}"></script>
+
+	</body>
+</html>

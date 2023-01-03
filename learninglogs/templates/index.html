@@ -1,27 +1,90 @@
 {% load static %}
+{% load sass_tags %}
 <!DOCTYPE HTML>
+
 <html>
-	<title>
-		{% block title %}
-		{% endblock title%}
-	  </title>
-	{% include 'includes/head.html' %}
+	<head>
+		<title>
+			{% block title %}{% endblock title%}
+		</title>
+		{% include 'includes/head.html' %}
+	</head>
 	<body class="is-preload">
 
-		<!-- Nav -->
-		{% include 'includes/nav.html' %}
+		<!-- Wrapper -->
+			<div id="wrapper">
 
-		<!-- Home -->
-		{% block content %}
-		{% endblock %}
-		{% comment %} {% include 'home.html' %}
-		
+				<!-- Header -->
+					<header id="header">
+						{% include 'includes/header.html' %}
+					</header>
 
-		<!-- Portfolio -->
-		{% include 'portfolio.html' %} {% endcomment %}
-		
-		
-		{% include 'includes/footer.html' %}
+				<!-- Menu -->
+					<section id="menu">
+						{% include 'includes/menu.html' %}
+					</section>
+
+				<!-- Main -->
+					<div id="main">
+						<!-- Post -->
+						{% block posts %}
+						{% endblock %}
+
+						<!-- Pagination -->
+							<ul class="actions pagination">
+								<li><a href="" class="disabled button large previous">Предыдущая</a></li>
+								<li><a href="#" class="button large next">Следующая</a></li>
+							</ul>
+					</div>
+
+				<!-- Sidebar -->
+					<section id="sidebar">
+
+						<!-- Intro -->
+							<section id="intro">
+								<a href="#" class="logo"><img src="{% static 'images/logo.jpg' %}" alt="" /></a>
+								<header>
+									<h2>LearningLogs</h2>
+									<p>Заметки для обучающихся программированию на Python.</a></p>
+								</header>
+							</section>
+
+						<!-- Mini Posts -->
+							<section>
+								<div class="mini-posts">
+									{% include 'includes/mini_posts.html' %}
+								</div>
+							</section>
+
+						
+
+						<!-- About -->
+							<section class="blurb">
+								<h2>About</h2>
+								<p>Сайт посвящен программированию на <strong>Python</strong>.<br>
+									Здесь вы можете оставлять свои заметки по обучению для систематизации 
+									и хранения полученых знаний.<br>
+									Можно добавлять заметки с помощью <strong>Telegram</strong> бота.</p>
+								<ul class="actions">
+									<li><a href="#" class="button">Learn More</a></li>
+								</ul>
+							</section>
+
+						<!-- Footer -->
+							<section id="footer">
+								{% include 'includes/footer.html' %}
+							</section>
+
+					</section>
+
+			</div>
+
+		<!-- Scripts -->
+			<script src="{% static 'assets/js/jquery.min.js' %}"></script>
+			<script src="{%static 'assets/js/browser.min.js' %}"></script>
+			<script src="{%static 'assets/js/breakpoints.min.js' %}"></script>
+			<script src="{%static 'assets/js/util.js' %}"></script>
+			<script src="{%static 'assets/js/main.js' %}"></script>
 
 	</body>
 </html>

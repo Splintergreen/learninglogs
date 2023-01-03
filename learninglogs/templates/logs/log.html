@@ -1,16 +1,24 @@
-{% extends 'index.html' %}
+{% extends 'single.html' %}
 {% load static %}
 
-{% block content %}
-
-{% comment %} {% for log in logs %} {% endcomment %}
-<div class="post">
-  <p class="meta"><span class="date">{{ log.date_added|date:"d E Y" }}</span> Опубликовано пользователем <a href="#">{{ log.owner.get_username }}</a></p>
-  {% comment %} <h2 class="title"><a href="#">Ссылка на пост </a></h2> {% endcomment %}
-  <div class="entry">
-     <p>{{ log.text }}</p>
+{% block current_post %}
+<header>
+  <div class="title">
+    <h3>{{ log.description }}</h3>
+    <p><a href="{% url 'logs:group' group.id %}">{{ group.title }}</a></p>
   </div>
-</div>
-{% comment %} {% endfor %} {% endcomment %}
-
+  <div class="meta">
+    <time class="published" datetime="#">{{ log.date_added|date:"d E Y" }}</time>
+    <a href="#" class="author"><span class="name">{{ log.owner.get_username }}</span><img src="{% static 'images/avatar.jpg' %}" alt="" /></a>
+  </div>
+</header>
+<span class="image featured"><img src="{% static 'images/pic01.jpg' %}" alt="" /></span>
+<p>{{ log.text }}</p>
+<footer>
+  <ul class="stats">
+    <li><a href="#">General</a></li>
+    <li><a href="#" class="icon solid fa-heart">28</a></li>
+    <li><a href="#" class="icon solid fa-comment">128</a></li>
+  </ul>
+</footer>
 {% endblock %}

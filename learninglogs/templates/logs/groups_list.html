@@ -1,0 +1,33 @@
+{% extends 'index.html' %}
+{% load static %}
+
+{% block posts %}
+
+{% for group in groups %}
+<article class="post">
+	<header>
+		<div class="title">
+			<h2><a href={% url 'logs:group' group.id %}>{{ group.title }}</a></h2>
+			{% comment %} <p>{% url 'logs:group' group.id %}{{ group.title }}</p> {% endcomment %}
+		</div>
+		<div class="meta">
+			<time class="published" datetime="#">{{ group.date_added|date:"d E Y" }}</time>
+			<a href="#" class="author"><span class="name">Добавил: {{ group.owner.get_username }}</span><img src="{% static 'images/avatar.jpg' %}" alt="" /></a>
+		</div>
+	</header>
+	<a href="single.html" class="image featured"><img src="{% static 'images/pic01.jpg' %}" alt="" /></a>
+	<p>{{ group.description }}</p>
+	<footer>
+		<ul class="actions">
+			<li><a href="single.html" class="button large">Читать</a></li>
+		</ul>
+		<ul class="stats">
+			<li><a href="#">General</a></li>
+			<li><a href="#" class="icon solid fa-heart">28</a></li>
+			<li><a href="#" class="icon solid fa-comment">128</a></li>
+		</ul>
+	</footer>
+</article>
+{% endfor %}
+
+{% endblock %}

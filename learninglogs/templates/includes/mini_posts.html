@@ -1,0 +1,12 @@
+{% load static %}
+
+{% for post in last_5_posts %}
+<article class="mini-post">
+    <header>
+        <h3><a href="{% url 'logs:log' post.id %}">{{ post.description }}</a></h3>
+        <time class="published" datetime="#">{{ post.date_added|date:"d E Y" }}</time>
+        <a href="#" class="author"><img src="{% static 'images/avatar.jpg' %}" alt="" /></a>
+    </header>
+    <a href="single.html" class="image"><img src="{% static 'images/pic07.jpg' %}" alt="" /></a>
+</article>
+{% endfor %}
