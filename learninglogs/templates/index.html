@@ -1,4 +1,5 @@
 {% load static %}
+{% comment %} {% load staticfiles %} {% endcomment %}
 {% load sass_tags %}
 <!DOCTYPE HTML>
 
@@ -29,12 +30,14 @@
 						<!-- Post -->
 						{% block posts %}
 						{% endblock %}
+						{% block loginform %}
+						{% endblock %}
 
 						<!-- Pagination -->
-							<ul class="actions pagination">
+							{% comment %} <ul class="actions pagination">
 								<li><a href="" class="disabled button large previous">Предыдущая</a></li>
 								<li><a href="#" class="button large next">Следующая</a></li>
-							</ul>
+							</ul> {% endcomment %}
 					</div>
 
 				<!-- Sidebar -->

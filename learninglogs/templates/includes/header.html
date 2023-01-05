@@ -3,11 +3,15 @@
 <nav class="links">
 	<ul>
 		<li><a href={% url "logs:groups_list" %}>Заметки</a></li>
-		{% comment %} <li><a href="#">Ipsum</a></li>
-		<li><a href="#">Feugiat</a></li> {% endcomment %}
 		<li><a href="#">Ссылки на документацию</a></li>
-		<li><a href="#">Мои заметки</a></li>
-		<li><a href="#">Войти</a>
+		
+        {% if user.is_authenticated %}
+            <li><a href="#">Мои заметки</a></li>
+            <li><a href="{% url 'users:logout' %}">Пользователь: {{ request.user }} Выйти</a></li>
+        {% else %}
+            <li><a href="{% url 'users:signup' %}">Войти/Зарегистрироваться</a></li>
+        {% endif %}
+		{% comment %} <li><a href="{% if view_name  == 'users:login' %}active{% endif %}" href="{% url 'users:login' %}">Войти</a> {% endcomment %}
 	</ul>
 </nav>
 <nav class="main">

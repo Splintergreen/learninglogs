@@ -92,12 +92,19 @@ DATABASES = {
     }
 }
 
-STATICFILES_DIRS = (os.path.join(BASE_DIR, 'static'),)
+STATICFILES_DIRS = (
+    os.path.join(BASE_DIR, 'static'),
+    BASE_DIR / "static",
+    )
+# STATIC_ROOT = os.path.join(BASE_DIR, 'static')
 STATICFILES_FINDERS = [
+    'django.contrib.staticfiles.finders.FileSystemFinder',
     'django.contrib.staticfiles.finders.AppDirectoriesFinder',
+    # 'django.contrib.staticfiles.finders.AppDirectoriesFinder',
     'sass_processor.finders.CssFinder',
 ]
 SASS_PROCESSOR_ROOT = os.path.join(BASE_DIR, 'static/assets/sass')
+# SASS_PROCESSOR_ROOT = os.path.join(BASE_DIR, 'static/auth_form')
 # Password validation
 # https://docs.djangoproject.com/en/4.1/ref/settings/#auth-password-validators
 

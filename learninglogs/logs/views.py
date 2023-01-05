@@ -30,8 +30,6 @@ def log(request, pk):
     """Show a single log and all its entries."""
     log = get_object_or_404(Log, pk=pk)
     group = Group.objects.filter(logs=log.id)[0]
-    print(group) # Log.groups.all()
     template = 'logs/log.html'
-    context = {'log': log,
-               'group': group}
+    context = {'log': log, 'group': group}
     return render(request, template, context)
