@@ -29,21 +29,40 @@
 
       <form method="post" action="{% url 'users:login' %}">
         {% csrf_token %}
-        {% for field in login_form %}
+        <div class="form-group">
+          <label for="id_username1">Имя пользователя
+            
+              <span class="required text-danger">*</span>
+            
+          </label>
+          <input type="text" name="username" autofocus autocapitalize="none" autocomplete="username" maxlength="150" required id="id_username1">
+        
+        </div>
+      
+        <div class="form-group">
+          <label for="id_password">Пароль
+            
+              <span class="required text-danger">*</span>
+            
+          </label>
+          <input type="password" name="password" autocomplete="current-password" required id="id_password">
+        
+        </div>
+        {% comment %} {% for field in login_form %}
           <div class="form-group">
             <label for="{{ field.id_for_label }}">{{ field.label }}
               {% if field.field.required %}
                 <span class="required text-danger">*</span>
               {% endif %}
             </label>
-            {{ field }}
+            {{ field }} {% endcomment %}
           {% comment %} {% if field.help_text %}
             <small id="{{ field.id_for_label }}-help" class="form-text text-muted">
               {{ field.help_text|safe }}
             </small>
           {% endif %} {% endcomment %}
-          </div>
-        {% endfor %}
+          {% comment %} </div> {% endcomment %}
+        {% comment %} {% endfor %} {% endcomment %}
         <div class="form-group">
           <button type="submit" name="btn_login_form">Войти</button>
         </div>
@@ -52,68 +71,12 @@
   </div>
 
 
-  <div class="form-panel one">
-    <div class="form-header">
-      <h1>Регистрация</h1>
-    </div>
-    <div class="form-content">
-      {% comment %} {% if form.errors %}
-        {% for field in form %}
-          {% for error in field.errors %}            
-            <div class="alert alert-danger">{{ error|escape }}</div>
-          {% endfor %}
-        {% endfor %}
-        {% for error in form.non_field_errors %}
-          <div class="alert alert-danger">{{ error|escape }}</div>
-        {% endfor %}
-      {% endif %} {% endcomment %}
-      <form method="post" action="{% url 'users:signup' %}">
-        {% csrf_token %}
-        {% for field in signup_form %}
-        <div class="form-group">
-          <label for="{{ field.id_for_label }}">{{ field.label }}
-            {% if field.field.required %}
-              <span class="required text-danger">*</span>
-            {% endif %}
-          </label>
-          {% comment %} <input type="text" id="username" name="username" required="required"/> {% endcomment %}
-          {{ field }}
-          {% comment %} {{ field|addclass:'form-control' }} {% endcomment %}
-        {% comment %} {% if field.help_text %}
-          <small id="{{ field.id_for_label }}-help" class="form-text text-muted">
-            {{ field.help_text|safe }} {% endcomment %}
-          {% comment %} </small>
-        {% endif %} {% endcomment %}
-        </div>
-        {% endfor %}
-        {% comment %} <div class="form-group">
-          <label for="username">Имя пользователя</label>
-          <input type="text" id="username" name="username" required="required"/>
-        </div>
-        <div class="form-group">
-          <label for="password">Пароль</label>
-          <input type="password" id="password" name="password" required="required"/>
-        </div>
-        <div class="form-group">
-          <label for="cpassword">Подтверждение пароля</label>
-          <input type="password" id="cpassword" name="cpassword" required="required"/>
-        </div>
-        <div class="form-group">
-          <label for="email">Email</label>
-          <input type="email" id="email" name="email" required="required"/>
-        </div> {% endcomment %}
-        <div class="form-group">
-          <button type="submit" name="btn_signup_form">Зарегистрироваться</button>
-        </div>
-      </form>
-    </div>
-  </div>
 </div>
 {% comment %} <div class="pen-footer"><a href="https://www.behance.net/gallery/30478397/Login-Form-UI-Library" target="_blank"><i class="material-icons">arrow_backward</i>View on Behance</a><a href="https://github.com/andyhqtran/UI-Library/tree/master/Login%20Form" target="_blank">View on Github<i class="material-icons">arrow_forward</i></a></div> {% endcomment %}
   {% comment %} <script src="{% static 'auth_form/js/jquery.min.js' %}"></script> {% endcomment %}
-  <script src='http://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js'></script>
+  {% comment %} <script src='http://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js'></script> {% endcomment %}
 {% comment %} <script src='https://codepen.io/andytran/pen/vLmRVp.js'></script> {% endcomment %}
 
-    <script src="{% static 'auth_form/js/index.js' %}"></script>
+    {% comment %} <script src="{% static 'auth_form/js/index.js' %}"></script> {% endcomment %}
 
 {% endblock %}
