@@ -12,8 +12,10 @@ def signup(request):
         if signup_form.is_valid():
             user = signup_form.save()
             user.save()
-            authenticated_user = authenticate(username=user.username,
-                                              password=request.POST['password1'])
+            authenticated_user = authenticate(
+                username=user.username,
+                password=request.POST['password1']
+            )
             login(request, authenticated_user)
             return HttpResponseRedirect(reverse('logs:index'))
     context = {'signup_form': signup_form}

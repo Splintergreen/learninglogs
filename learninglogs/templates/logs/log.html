@@ -12,8 +12,8 @@
     <a href="#" class="author"><span class="name">{{ log.owner.get_username }}</span><img src="{% static 'images/avatar.jpg' %}" alt="" /></a>
   </div>
 </header>
-<span class="image featured"><img src="{% static 'images/pic01.jpg' %}" alt="" /></span>
-<p>{{ log.text }}</p>
+{% comment %} <span class="image featured"><img src="{% static 'images/pic01.jpg' %}" alt="" /></span> {% endcomment %}
+<p>{{ log.text|safe }}</p>
 <footer>
   <ul class="stats">
     <li><a href="#">General</a></li>

@@ -15,8 +15,8 @@
 			<a href="#" class="author"><span class="name">Добавил: {{ group.owner.get_username }}</span><img src="{% static 'images/avatar.jpg' %}" alt="" /></a>
 		</div>
 	</header>
-	<a href="single.html" class="image featured"><img src="{% static 'images/pic01.jpg' %}" alt="" /></a>
-	<p>{{ group.description }}</p>
+	{% comment %} <a href="single.html" class="image featured"><img src="{% static 'images/pic01.jpg' %}" alt="" /></a> {% endcomment %}
+	<p>{{ group.description|safe }}</p>
 	<footer>
 		<ul class="actions">
 			<li><a href="single.html" class="button large">Читать</a></li>

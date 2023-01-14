@@ -1,20 +1,12 @@
-{# Это код файла templates/users/logged_out.html #}
-
-{% extends 'index.html' %}
+{% extends "index.html" %}
 {% block title %}Вы вышли из системы{% endblock %}
-{% block content %}
-<div class="row justify-content-center">
-  <div class="col-md-8 p-5">
-    <div class="card">
-      <div class="card-header">
-        Выход
-      </div>
-      <div class="card-body">
-        <p>
-          Вы вышли из своей учётной записи. Ждём вас снова!
-        </p>
-      </div> <!-- card body -->
-    </div> <!-- card -->
-  </div> <!-- col -->
-</div> <!-- row -->
+
+{% block loginform %}
+<article class="post">
+	<header>
+		<div class="title">
+			<p>Вы вышли из своей учётной записи. Ждём вас снова!</p>
+		</div>
+	</header>
+</article>
 {% endblock %}

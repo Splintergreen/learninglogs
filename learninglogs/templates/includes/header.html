@@ -7,12 +7,13 @@
 		
         {% if user.is_authenticated %}
             <li><a href="#">Мои заметки</a></li>
+            <li><a href="{% url 'logs:create_log' %}">Добавить заметку</a></li>
+
             <li><a href="{% url 'users:logout' %}">Пользователь: {{ request.user }} Выйти</a></li>
         {% else %}
 			<li><a href="{% url 'users:login' %}">Вход</a></li>
             <li><a href="{% url 'users:signup' %}">Регистрация</a></li>
         {% endif %}
-		{% comment %} <li><a href="{% if view_name  == 'users:login' %}active{% endif %}" href="{% url 'users:login' %}">Войти</a> {% endcomment %}
 	</ul>
 </nav>
 <nav class="main">

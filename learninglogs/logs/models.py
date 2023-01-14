@@ -1,16 +1,20 @@
 from django.db import models
 from django.contrib.auth import get_user_model
-
+from ckeditor.fields import RichTextField
 
 User = get_user_model()
 
 
 class Log(models.Model):
     """A log for a user to record their learning."""
-    text = models.TextField()
-    description = models.TextField()
+    text = RichTextField()
+    description = models.TextField(max_length=50)
     date_added = models.DateTimeField(auto_now_add=True)
     owner = models.ForeignKey(User, on_delete=models.CASCADE)
+    image = models.ImageField('Картинка',
+                              upload_to='posts/',
+                              blank=True
+                              )
 
     def __str__(self):
         """Return a string representation of the model."""
@@ -25,12 +29,11 @@ class Log(models.Model):
 class Group(models.Model):
     """A group of users who can share logs."""
     title = models.CharField(max_length=200)
-    description = models.TextField()
+    description = RichTextField()
     date_added = models.DateTimeField(auto_now_add=True)
     owner = models.ForeignKey(User, on_delete=models.CASCADE)
     logs = models.ManyToManyField(
         Log,
-        blank=True,
         related_name='groups'
     )
 
