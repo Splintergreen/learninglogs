@@ -1,5 +1,6 @@
 {% extends 'index.html' %}
 {% load static %}
+{% load thumbnail %}
 
 {% block posts %}
 
@@ -8,18 +9,19 @@
 	<header>
 		<div class="title">
 			<h2><a href={% url 'logs:group' group.id %}>{{ group.title }}</a></h2>
-			{% comment %} <p>{% url 'logs:group' group.id %}{{ group.title }}</p> {% endcomment %}
 		</div>
 		<div class="meta">
 			<time class="published" datetime="#">{{ group.date_added|date:"d E Y" }}</time>
-			<a href="#" class="author"><span class="name">Добавил: {{ group.owner.get_username }}</span><img src="{% static 'images/avatar.jpg' %}" alt="" /></a>
+			{% thumbnail group.owner.avatar "100x100" crop="center" upscale=True as im %}
+				<a href="#" class="author"><span class="name">Добавил: {{ group.owner.get_username }}</span><img src="{{ im.url }}" alt="" /></a>
+			{% endthumbnail %}
 		</div>
 	</header>
 	{% comment %} <a href="single.html" class="image featured"><img src="{% static 'images/pic01.jpg' %}" alt="" /></a> {% endcomment %}
 	<p>{{ group.description|safe }}</p>
 	<footer>
 		<ul class="actions">
-			<li><a href="single.html" class="button large">Читать</a></li>
+			<li><a href={% url 'logs:group' group.id %} class="button large">Читать</a></li>
 		</ul>
 		<ul class="stats">
 			<li><a href="#">General</a></li>

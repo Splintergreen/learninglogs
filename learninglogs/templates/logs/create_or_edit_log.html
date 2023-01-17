@@ -1,0 +1,93 @@
+{% extends 'index.html' %}
+{% load static %}
+{% block title %}
+  {% if is_edit %}
+    Редактировать запись
+  {% else %}
+    Новая заметка
+{% endif %}
+{% endblock %}
+
+{% block posts %}
+<script type="text/javascript" src="{% static "ckeditor/ckeditor-init.js" %}"></script>
+<script type="text/javascript" src="{% static "ckeditor/ckeditor/ckeditor.js" %}"></script>
+<link rel="stylesheet" href="{% static 'auth_form/css/style.css' %}">
+
+<div class="form-panel one">
+  <div class="form-header">
+    {% if is_edit %}
+      <h1>Редактирование заметки</h1>
+    {% else %}
+      <h1>Создание новой заметки</h1>
+    {% endif %}
+  </div>
+  <div class="form-content">
+    {% if form.errors %}
+      {% for field in form %}
+        {% for error in field.errors %}            
+          <div class="alert alert-danger">
+            {{ error|escape }}
+          </div>
+        {% endfor %}
+      {% endfor %}
+      {% for error in form.non_field_errors %}
+        <div class="alert alert-danger">
+          {{ error|escape }}
+        </div>
+      {% endfor %}
+    {% endif %}
+    <form method="post" enctype="multipart/form-data" action="">
+      {% csrf_token %}
+      <div>
+        <label for="id_text">Введите текст заметки<span class="required text-danger" >*</span></label>
+        {{ form.text|safe }} 
+      </div>
+      <div >
+        <label for="id_description" cols="10" rows="10">Введите заголовок заметки<span class="required text-danger" >*</span></label>
+        {% if is_edit %}
+        <textarea name="description" cols="40" rows="1"  maxlength="50" style="background-color:white;" required="" id="id_description" value=>{{ form.description.value }}</textarea>
+        {% else %}
+        <textarea name="description" cols="40" rows="1"  maxlength="50" style="background-color:white;" required="" id="id_description" value=></textarea>
+        {% endif %}
+      </div>
+      <div>
+        <label for="id_group" >Выберите группу<span class="required text-danger" >*</span></label>
+        <select name="{{ form.group.name }}" style="background-color:white;">
+          {% for instance in form.group %}
+              {{ instance }}
+          {% endfor %}
+        </select>
+        {% comment %} {{ form.group.value }} {% endcomment %}
+      </div>
+      <br>
+      {% if is_edit %}
+        <div>
+          <label for="id_image">
+          Изображение                 
+          </label>
+          {{ form.image }}
+            <small id="id_group-help" class="form-text text-muted">
+            </small>
+        </div>
+        {% else %}
+        <div>
+          {% comment %} <label for="id_image">
+            Добавьте изображение                      
+          </label> {% endcomment %}
+          <input type="file" name="image" accept="image/*" class="form-control" id="id_image">                      
+        </div>
+        {% endif %}
+        <br>
+        <div>
+          <button type="submit" class="btn btn-primary">
+            {% if is_edit %}
+              Сохранить
+            {% else %}
+              Добавить
+            {% endif %}               
+          </button> 
+        </div>
+    </form>
+  </div>
+</div>
+{% endblock %}

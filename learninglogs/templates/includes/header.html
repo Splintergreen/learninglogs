@@ -1,4 +1,5 @@
 {% load static %}
+{% load thumbnail %}
 <h1><a href="{% url "logs:index" %}">Главная</a></h1>
 <nav class="links">
 	<ul>
@@ -6,7 +7,7 @@
 		<li><a href="#">Ссылки на документацию</a></li>
 		
         {% if user.is_authenticated %}
-            <li><a href="#">Мои заметки</a></li>
+            <li><a href="{% url 'logs:my_logs' %}">Мои заметки</a></li>
             <li><a href="{% url 'logs:create_log' %}">Добавить заметку</a></li>
 
             <li><a href="{% url 'users:logout' %}">Пользователь: {{ request.user }} Выйти</a></li>
@@ -19,13 +20,24 @@
 <nav class="main">
 	<ul>
 		<li class="search">
-			<a class="fa-search" href="#search">Search</a>
-			<form id="search" method="get" action="#">
-				<input type="text" name="query" placeholder="Search" />
+			<a class="fa-search" href="#search">Поиск</a>
+			<form id="search" method="get" action="{% url 'logs:search' %}">
+				<input type="text" name="search_query" placeholder="Поиск" />
 			</form>
 		</li>
 		<li class="menu">
-			<a class="fa-bars" href="#menu">Menu</a>
+			{% comment %} поменять класс на аватар и добавить ссылку на профиль {% endcomment %}
+			{% comment %} Навести красоту {% endcomment %}
+			<div class="avatar-wrapper">
+				<link rel="stylesheet" href="{% static 'auth_form/css/style.css' %}">
+				{% thumbnail request.user.avatar "100x100" crop="center" upscale=True as im %}
+					<a href="#menu"><img src="{{ im.url }}" alt="Avatar" class="avatar"></a>
+				{% endthumbnail %}
+				{% comment %} <div class="verified-avatar-icon">✓</div> {% endcomment %}
+			  </div>
+  
+
+			{% comment %} <a href="#menu" class="author"><img src="{% static 'images/avatar.jpg' %}"></a> {% endcomment %}
 		</li>
 	</ul>
 </nav>

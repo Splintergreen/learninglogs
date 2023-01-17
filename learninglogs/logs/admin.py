@@ -2,6 +2,10 @@ from django.contrib import admin
 from django import forms
 from ckeditor.widgets import CKEditorWidget
 from .models import Log, Group
+from .models import User
+
+
+admin.site.register(User)
 
 
 @admin.register(Log)

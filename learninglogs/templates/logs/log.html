@@ -1,5 +1,6 @@
 {% extends 'single.html' %}
 {% load static %}
+{% load thumbnail %}
 
 {% block current_post %}
 <header>
@@ -9,7 +10,9 @@
   </div>
   <div class="meta">
     <time class="published" datetime="#">{{ log.date_added|date:"d E Y" }}</time>
-    <a href="#" class="author"><span class="name">{{ log.owner.get_username }}</span><img src="{% static 'images/avatar.jpg' %}" alt="" /></a>
+    {% thumbnail log.owner.avatar "100x100" crop="center" upscale=True as im %}
+      <a href="#" class="author"><span class="name">{{ log.owner.get_username }}</span><img src="{{ im.url }}" alt="" /></a>
+		{% endthumbnail %}
   </div>
 </header>
 {% comment %} <span class="image featured"><img src="{% static 'images/pic01.jpg' %}" alt="" /></span> {% endcomment %}

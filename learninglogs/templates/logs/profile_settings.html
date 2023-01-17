@@ -1,0 +1,52 @@
+{% extends "index.html" %}
+{% load static %}
+{% block title %}Login{% endblock %}
+{% block loginform %}
+{% load user_filters %}
+
+<!-- Form-->
+<div class="form">
+  <link rel="stylesheet" href="{% static 'auth_form/css/style.css' %}">
+  <div class="form-toggle"></div>
+    <div class="form-panel one">
+    <div class="form-header">
+      <h1>Настройки</h1>
+    </div>
+    <div class="form-content">
+      {% comment %} {% if form.errors %}
+        {% for field in form %}
+          {% for error in field.errors %}            
+            <div class="alert alert-danger">{{ error|escape }}</div>
+          {% endfor %}
+        {% endfor %}
+        {% for error in form.non_field_errors %}
+          <div class="alert alert-danger">{{ error|escape }}</div>
+        {% endfor %}
+      {% endif %} {% endcomment %}
+      <form method="post" action="{% url 'users:signup' %}">
+        {% csrf_token %}
+        {% for field in signup_form %}
+        <div class="form-group">
+          <label for="{{ field.id_for_label }}">{{ field.label }}
+            {% if field.field.required %}
+              <span class="required text-danger">*</span>
+            {% endif %}
+          </label>
+          {% comment %} <input type="text" id="username" name="username" required="required"/> {% endcomment %}
+          {{ field }}
+          {% comment %} {{ field|addclass:'form-control' }} {% endcomment %}
+        {% comment %} {% if field.help_text %}
+          <small id="{{ field.id_for_label }}-help" class="form-text text-muted">
+            {{ field.help_text|safe }} {% endcomment %}
+          {% comment %} </small>
+        {% endif %} {% endcomment %}
+        </div>
+        {% endfor %}
+        <div class="form-group">
+          <button type="submit" name="btn_signup_form">Зарегистрироваться</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+{% endblock %}

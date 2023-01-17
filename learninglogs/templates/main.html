@@ -1,0 +1,11 @@
+{% extends "index.html" %}
+{% load static %}
+{% block title %}LearningLogs{% endblock %}
+{% block posts %}
+<article>
+    <h1>Добро пожаловать</h1><img class="icon" width="300" height="300"src="{% static 'images/logo.jpg' %}">
+    <p>Сайт посвящен программированию на Python.
+    Здесь вы можете оставлять свои заметки по обучению для систематизации и хранения полученых знаний.
+    Можно добавлять заметки с помощью Telegram бота.&nbsp;</p>
+</article>
+{% endblock %}

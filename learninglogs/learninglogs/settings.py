@@ -16,6 +16,7 @@ LOGIN_URL = 'users:login'
 LOGIN_REDIRECT_URL = 'logs:index'
 # LOGOUT_REDIRECT_URL = 'posts:index'
 # Application definition
+AUTH_USER_MODEL = 'logs.User'
 
 INSTALLED_APPS = [
     'django.contrib.admin',
@@ -30,6 +31,7 @@ INSTALLED_APPS = [
     'sass_processor',
     'ckeditor',
     'ckeditor_uploader',
+    'sorl.thumbnail',
 ]
 
 MIDDLEWARE = [
@@ -77,10 +79,10 @@ DATABASES = {
     }
 }
 
-# STATICFILES_DIRS = (
-#     os.path.join(BASE_DIR, 'static'),
-#     BASE_DIR / "static",
-# )
+STATICFILES_DIRS = (
+    os.path.join(BASE_DIR, 'static'),
+    BASE_DIR / "static",
+)
 STATICFILES_FINDERS = [
     'django.contrib.staticfiles.finders.FileSystemFinder',
     'django.contrib.staticfiles.finders.AppDirectoriesFinder',
@@ -114,8 +116,9 @@ USE_TZ = True
 
 
 STATIC_URL = 'static/'
-STATIC_ROOT = os.path.join(BASE_DIR, 'static')
-
+# STATIC_ROOT = os.path.join(BASE_DIR, 'static')
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+MEDIA_URL = 'media/'
 CKEDITOR_BASEPATH = "/static/ckeditor/ckeditor/"
 CKEDITOR_UPLOAD_PATH = "uploads/"
 CKEDITOR_CONFIGS = MYCONFIG

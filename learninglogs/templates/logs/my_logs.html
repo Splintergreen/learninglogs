@@ -2,8 +2,8 @@
 {% load static %}
 {% load thumbnail %}
 
-{% block title %}Заметки{% endblock %}
 {% block posts %}
+
 {% for log in logs %}
 <article class="post">
 	<header>
@@ -18,7 +18,6 @@
 			{% endthumbnail %}
 		</div>
 	</header>
-	{% comment %} <a href="single.html" class="image featured"><img src="images/pic02.jpg" alt="" /></a> {% endcomment %}
 	<p>{{ log.text|safe }}</p>
 	<footer>
 		<ul class="actions">
