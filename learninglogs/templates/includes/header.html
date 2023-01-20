@@ -3,7 +3,7 @@
 <h1><a href="{% url "logs:index" %}">Главная</a></h1>
 <nav class="links">
 	<ul>
-		<li><a href={% url "logs:groups_list" %}>Заметки</a></li>
+		{% comment %} <li><a href={% url "logs:groups_list" %}>Заметки</a></li> {% endcomment %}
 		<li><a href="#">Ссылки на документацию</a></li>
 		
         {% if user.is_authenticated %}
@@ -30,7 +30,7 @@
 			{% comment %} Навести красоту {% endcomment %}
 			<div class="avatar-wrapper">
 				<link rel="stylesheet" href="{% static 'auth_form/css/style.css' %}">
-				{% thumbnail request.user.avatar "100x100" crop="center" upscale=True as im %}
+				{% thumbnail request.user.avatar "90x90" crop="center" upscale=True as im %}
 					<a href="#menu"><img src="{{ im.url }}" alt="Avatar" class="avatar"></a>
 				{% endthumbnail %}
 				{% comment %} <div class="verified-avatar-icon">✓</div> {% endcomment %}

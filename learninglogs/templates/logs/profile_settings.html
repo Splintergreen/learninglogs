@@ -1,5 +1,6 @@
 {% extends "index.html" %}
 {% load static %}
+{% load thumbnail %}
 {% block title %}Login{% endblock %}
 {% block loginform %}
 {% load user_filters %}
@@ -10,7 +11,7 @@
   <div class="form-toggle"></div>
     <div class="form-panel one">
     <div class="form-header">
-      <h1>Настройки</h1>
+      <h1>Профиль</h1>
     </div>
     <div class="form-content">
       {% comment %} {% if form.errors %}
@@ -23,30 +24,21 @@
           <div class="alert alert-danger">{{ error|escape }}</div>
         {% endfor %}
       {% endif %} {% endcomment %}
-      <form method="post" action="{% url 'users:signup' %}">
+      <form method="post">
         {% csrf_token %}
-        {% for field in signup_form %}
+        {% thumbnail request.user.avatar "200x200" crop="center" upscale=True as im %}
+          <a class="image" style="left: 35%;"><img src="{{ im.url }}" alt="" /></a>
+        {% endthumbnail %}
+        {% comment %} {% thumbnail request.user.avatar "200x200" crop="center" upscale=False as im %}
+					<a href="#menu"><img src="{{ im.url }}" alt="Avatar" class="avatar"></a>
+        {% endthumbnail %} {% endcomment %}
+        {{ form.as_p|safe }}
         <div class="form-group">
-          <label for="{{ field.id_for_label }}">{{ field.label }}
-            {% if field.field.required %}
-              <span class="required text-danger">*</span>
-            {% endif %}
-          </label>
-          {% comment %} <input type="text" id="username" name="username" required="required"/> {% endcomment %}
-          {{ field }}
-          {% comment %} {{ field|addclass:'form-control' }} {% endcomment %}
-        {% comment %} {% if field.help_text %}
-          <small id="{{ field.id_for_label }}-help" class="form-text text-muted">
-            {{ field.help_text|safe }} {% endcomment %}
-          {% comment %} </small>
-        {% endif %} {% endcomment %}
-        </div>
-        {% endfor %}
-        <div class="form-group">
-          <button type="submit" name="btn_signup_form">Зарегистрироваться</button>
+          <button type="submit" name="">Сохранить изменения</button>
         </div>
       </form>
     </div>
   </div>
 </div>
+
 {% endblock %}

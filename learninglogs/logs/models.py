@@ -14,6 +14,7 @@ class User(AbstractUser):
         'Аватар',
         upload_to='users/',
         blank=True,
+        default='users/no_image.jpg'
     )
 
     def __str__(self):
@@ -38,7 +39,7 @@ class Log(models.Model):
 
     def __str__(self):
         """Return a string representation of the model."""
-        return self.text[:50] + '...'
+        return self.text[:15]
 
     class Meta:
         ordering = ['date_added']
@@ -49,7 +50,7 @@ class Log(models.Model):
 class Group(models.Model):
     """A group of users who can share logs."""
     title = models.CharField(max_length=200)
-    description = RichTextField()
+    description = RichTextField(max_length=400)
     date_added = models.DateTimeField(auto_now_add=True)
     owner = models.ForeignKey(User, on_delete=models.CASCADE)
     logs = models.ManyToManyField(

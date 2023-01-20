@@ -18,6 +18,7 @@ urlpatterns = [
     path('log/<int:pk>/', views.log, name='log'),
     path('search/', views.search, name='search'),
     path('my-logs/', views.my_logs, name='my_logs'),
+    path('user/<str:username>/logs/', views.user_logs, name='user_logs'),
     path('profile/', views.profile_settings, name='profile_settings'),
     # path('contacts/', views.contacts, name='contacts')
 ]

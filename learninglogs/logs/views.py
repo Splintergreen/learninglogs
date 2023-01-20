@@ -1,21 +1,24 @@
 from django.shortcuts import render
-from .models import Log, Group
+from .models import Log, Group, User
 from django.shortcuts import get_object_or_404, redirect
-from .forms import LogForm
+from .forms import LogForm, ProfileForm
 from django.contrib.postgres.search import SearchVector
+from django.contrib.auth.decorators import login_required
+from utils import paginator
 
 
 def index(request):
     """The home page for Learning Log."""
-    template = 'main.html'
-    return render(request, template,)
+    # template = 'main.html'
+    return redirect('logs:groups_list')
 
 
 def groups(request):
     """Show all groups."""
     groups = Group.objects.order_by('title')
+    page_obj = paginator.page(groups, request)
     template = 'logs/groups_list.html'
-    context = {'groups': groups}
+    context = {'page_obj': page_obj}
     return render(request, template, context)
 
 
@@ -23,8 +26,9 @@ def group(request, pk):
     """Show a single group and all its logs."""
     group = get_object_or_404(Group, pk=pk)
     logs = group.logs.order_by('date_added')
+    page_obj = paginator.page(logs, request)
     template = 'logs/logs_list.html'
-    context = {'group': group, 'logs': logs}
+    context = {'group': group, 'page_obj': page_obj}
     return render(request, template, context)
 
 
@@ -37,6 +41,7 @@ def log(request, pk):
     return render(request, template, context)
 
 
+@login_required
 def create_log(request):
     """Create a new log."""
     template = 'logs/create_or_edit_log.html'
@@ -53,6 +58,7 @@ def create_log(request):
     return render(request, template, context)
 
 
+@login_required
 def edit_log(request, pk):
     """Edit an existing log."""
     log = get_object_or_404(Log, pk=pk)
@@ -80,23 +86,37 @@ def search(request):
     return render(request, template, context)
 
 
+@login_required
 def my_logs(request):
     """Show all logs created by the current user."""
     logs = Log.objects.filter(owner=request.user).order_by('date_added')
+    page_obj = paginator.page(logs, request)
+    template = 'logs/my_logs.html'
+    context = {'page_obj': page_obj}
+    return render(request, template, context)
+
+
+def user_logs(request, username):
+    """Show all logs created by the current user."""
+    user = get_object_or_404(User, username=username)
+    logs = Log.objects.filter(owner_id=user.id).order_by('date_added')
     template = 'logs/my_logs.html'
     context = {'logs': logs}
     return render(request, template, context)
 
 
+@login_required
 def profile_settings(request):
-    # показывает страницу настроек профиля
-    # можно изменять имя, фамилию, email, пароль
-    # можно удалить аккаунт
-    # можно добавить аватарку
-    # можно добавить о себе
-    # можно добавить ссылки на соцсети
-    # можно добавить ссылки на другие сайты
-    # можно добавить ссылки на другие аккаунты
-    
+    """Edit an existing log."""
+    user = request.user
     template = 'logs/profile_settings.html'
-    
+    form = ProfileForm(
+        request.POST or None, files=request.FILES or None, instance=user
+    )
+    if user.is_anonymous:
+        return redirect('logs:index')
+    if form.is_valid():
+        form.save()
+        return redirect('logs:my_logs')
+    context = {'user': user, 'form': form, }
+    return render(request, template, context)
