@@ -1,7 +1,7 @@
 from django.contrib import admin
 from django import forms
 from ckeditor.widgets import CKEditorWidget
-from .models import Log, Group
+from .models import Log, Group, Comment
 from .models import User
 
 
@@ -26,3 +26,12 @@ class GroupAdmin(admin.ModelAdmin):
     list_display = ('title', 'description', 'owner', 'date_added',)
     search_fields = ('title', )
     list_filter = ('date_added', )
+
+
+@admin.register(Comment)
+class CommentAdmin(admin.ModelAdmin):
+    text = forms.CharField(widget=CKEditorWidget())
+    list_display = ('text', 'author', 'created',)
+    search_fields = ('author', 'text', )
+    list_filter = ('author', 'created', )
+    empty_value_display = '-пусто-'

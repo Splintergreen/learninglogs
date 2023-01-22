@@ -2,7 +2,7 @@ from django.db import models
 # from django.contrib.auth import get_user_model
 from django.contrib.auth.models import AbstractUser
 from ckeditor.fields import RichTextField
-
+from ckeditor_uploader.fields import RichTextUploadingField
 # User = get_user_model()
 
 
@@ -28,7 +28,7 @@ class User(AbstractUser):
 
 class Log(models.Model):
     """A log for a user to record their learning."""
-    text = RichTextField()
+    text = RichTextUploadingField()
     description = models.TextField(max_length=50)
     date_added = models.DateTimeField(auto_now_add=True)
     owner = models.ForeignKey(User, on_delete=models.CASCADE)
@@ -66,3 +66,25 @@ class Group(models.Model):
         ordering = ['date_added']
         verbose_name = 'Группа'
         verbose_name_plural = 'Группы'
+
+
+class Comment(models.Model):
+    log = models.ForeignKey(
+        Log,
+        on_delete=models.CASCADE,
+        blank=True,
+        null=True,
+        related_name='comments'
+    )
+    author = models.ForeignKey(
+        User,
+        on_delete=models.CASCADE,
+        related_name='comments'
+    )
+    text = RichTextUploadingField(config_name='comment')
+    created = models.DateTimeField(auto_now_add=True)
+
+    class Meta:
+        ordering = ['-created', 'author', 'log']
+        verbose_name = 'Комментарий'
+        verbose_name_plural = 'Комментарии'

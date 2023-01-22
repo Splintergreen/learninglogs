@@ -1,64 +1,138 @@
 MYCONFIG = {
     'default': {
-        # 'skin': 'moono',
-        # 'skin': 'office2013',
         'toolbar_Basic': [
             ['Source', '-', 'Bold', 'Italic']
         ],
         'toolbar_YourCustomToolbarConfig': [
-            {'name': 'document', 'items': ['Templates']},
-            {'name': 'clipboard', 'items': ['Undo', 'Redo']},
-            {'name': 'editing', 'items': ['Find', 'Replace', '-', 'SelectAll']},
-            # {'name': 'forms',
-            #  'items': ['Form', 'Checkbox', 'Radio', 'TextField', 'Textarea', 'Select', 'Button', 'ImageButton',
-            #            'HiddenField']},
-            # '/',
+            {'name': 'document',
+             'items': ['Templates', ]},
+            {'name': 'editing',
+             'items': ['Find', ]},
             {'name': 'basicstyles',
-             'items': ['Bold', 'Italic', 'Underline', 'Strike', 'Subscript', 'Superscript', '-', 'RemoveFormat']},
+             'items': [
+                'Bold',
+                'Italic',
+                'Underline',
+                'Strike',
+                'Subscript',
+                'Superscript',
+                '-',
+                'RemoveFormat'
+                ]},
             {'name': 'paragraph',
-             'items': ['NumberedList', 'BulletedList', '-', 
-                       'JustifyLeft', 'JustifyCenter', 'JustifyRight', 'JustifyBlock', '-', 
-                       ]},
-            {'name': 'links', 'items': ['Link', 'Unlink']},
+             'items': [
+                'NumberedList',
+                'BulletedList',
+                '-',
+                'JustifyLeft',
+                'JustifyCenter',
+                'JustifyRight',
+                'JustifyBlock',
+                '-',
+                ]},
+            {'name': 'links',
+             'items': ['Link', 'Unlink']},
             {'name': 'insert',
-             'items': ['Flash', 'Table', 'HorizontalRule', 'Smiley', 'SpecialChar', ]},
+             'items': [
+                'Flash',
+                'Table',
+                'HorizontalRule',
+                'Smiley',
+                ]},
             '/',
-            {'name': 'styles', 'items': ['Styles', 'Format', 'Font', 'FontSize']},
-            {'name': 'colors', 'items': ['TextColor', 'BGColor', 'Image',]},
-            # {'name': 'tools', 'items': ['Maximize', 'ShowBlocks']},
-            # {'name': 'about', 'items': ['About']},
-            # '/',  # put this to force next toolbar on new line
-            # {'name': 'yourcustomtools', 'items': [
-            #     # put the name of your editor.ui.addButton here
-            #     'Preview',
-            #     'Maximize',
-
-            # ]},
+            {'name': 'styles',
+             'items': [
+                'Styles',
+                'Format',
+                'Font',
+                'FontSize'
+                ]},
+            {'name': 'colors',
+             'items': [
+                'TextColor',
+                'BGColor',
+                'Image',
+                'CodeSnippet',
+                'Youtube',
+                'Preview'
+                ]},
         ],
-        'toolbar': 'YourCustomToolbarConfig',  # put selected toolbar config here
-        # 'toolbarGroups': [{ 'name': 'document', 'groups': [ 'mode', 'document', 'doctools' ] }],
-        'height': '100%',
-        'width': '100%',
+        'toolbar': 'YourCustomToolbarConfig',
+        # 'height': '100%',
+        'width': '125%',
         # 'filebrowserWindowHeight': 725,
         # 'filebrowserWindowWidth': 940,
         # 'toolbarCanCollapse': True,
-        # 'mathJaxLib': '//cdn.mathjax.org/mathjax/2.2-latest/MathJax.js?config=TeX-AMS_HTML',
         'tabSpaces': 4,
         'extraPlugins': ','.join([
-            'uploadimage', # the upload image feature
-            # your extra plugins here
-            # 'div',
+            'uploadimage',
             'autolink',
             'autoembed',
             'embedsemantic',
             'autogrow',
-            # 'devtools',
             'widget',
             'lineutils',
             'clipboard',
             'dialog',
             'dialogui',
-            'elementspath'
+            'elementspath',
+            'codesnippet',
+            'youtube',
+        ]),
+    },
+
+
+    'comment': {
+        'toolbar_YourCustomToolbarConfig': [
+            {'name': 'basicstyles',
+             'items': [
+                'Smiley',
+                'Bold',
+                'Italic',
+                'Underline',
+                'Strike',
+                'Subscript',
+                'Superscript',
+                ]},
+            {'name': 'paragraph',
+             'items': [
+                'NumberedList',
+                'BulletedList',
+                ]},
+            {'name': 'links',
+             'items': [
+                'Link',
+                'Unlink'
+                ]},
+            {'name': 'colors',
+             'items': [
+                'TextColor',
+                'BGColor',
+                'Image',
+                'CodeSnippet',
+                'Youtube',
+                ]},
+        ],
+        'toolbar': 'YourCustomToolbarConfig',
+        'height': '100%',
+        'width': '200%',
+        # 'filebrowserWindowHeight': 725,
+        # 'filebrowserWindowWidth': 940,
+        'tabSpaces': 4,
+        'extraPlugins': ','.join([
+            'uploadimage',
+            'autolink',
+            'autoembed',
+            'embedsemantic',
+            'autogrow',
+            'widget',
+            'lineutils',
+            'clipboard',
+            'dialog',
+            'dialogui',
+            'elementspath',
+            'codesnippet',
+            'youtube',
         ]),
     }
 }

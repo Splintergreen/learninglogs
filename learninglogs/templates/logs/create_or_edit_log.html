@@ -38,10 +38,6 @@
     {% endif %}
     <form method="post" enctype="multipart/form-data" action="">
       {% csrf_token %}
-      <div>
-        <label for="id_text">Введите текст заметки<span class="required text-danger" >*</span></label>
-        {{ form.text|safe }} 
-      </div>
       <div >
         <label for="id_description" cols="10" rows="10">Введите заголовок заметки<span class="required text-danger" >*</span></label>
         {% if is_edit %}
@@ -50,6 +46,12 @@
         <textarea name="description" cols="40" rows="1"  maxlength="50" style="background-color:white;" required="" id="id_description" value=></textarea>
         {% endif %}
       </div>
+      <br>
+      <div>
+        <label for="id_text">Введите текст заметки<span class="required text-danger" >*</span></label>
+        {{ form.text|safe }} 
+      </div>
+      <br>
       <div>
         <label for="id_group" >Выберите группу<span class="required text-danger" >*</span></label>
         <select name="{{ form.group.name }}" style="background-color:white;">
@@ -60,24 +62,6 @@
         {% comment %} {{ form.group.value }} {% endcomment %}
       </div>
       <br>
-      {% if is_edit %}
-        <div>
-          <label for="id_image">
-          Изображение                 
-          </label>
-          {{ form.image }}
-            <small id="id_group-help" class="form-text text-muted">
-            </small>
-        </div>
-        {% else %}
-        <div>
-          {% comment %} <label for="id_image">
-            Добавьте изображение                      
-          </label> {% endcomment %}
-          <input type="file" name="image" accept="image/*" class="form-control" id="id_image">                      
-        </div>
-        {% endif %}
-        <br>
         <div>
           <button type="submit" class="btn btn-primary">
             {% if is_edit %}

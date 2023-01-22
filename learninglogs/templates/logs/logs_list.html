@@ -3,18 +3,18 @@
 {% load thumbnail %}
 
 {% block title %}Заметки{% endblock %}
+
 {% block posts %}
 {% for log in page_obj %}
 <article class="post">
 	<header>
 		<div class="title">
 			<h2><a href="{% url 'logs:log' log.id %}">{{ log.description }}</a></h2>
-			{% comment %} <p>{% url 'logs:log' log.id %}</p> {% endcomment %}
 		</div>
 		<div class="meta">
 			<time class="published" datetime="#">{{ log.date_added|date:"d E Y" }}</time>
 			{% thumbnail log.owner.avatar "100x100" crop="center" upscale=True as im %}
-				<a href="#" class="author"><span class="name">{{ log.owner.get_username }}</span><img src="{{ im.url }}" alt="" /></a>
+				<a href="{% url 'logs:user_logs' log.owner.get_username %}" class="author"><span class="name">{{ log.owner.get_username }}</span><img src="{{ im.url }}" alt="" /></a>
 			{% endthumbnail %}
 		</div>
 	</header>
@@ -25,12 +25,15 @@
 		{% endwith %}
 	</p>
 	{% comment %} <p>{{ log.text|safe }}</p> {% endcomment %}
+	<br>
 	<footer>
 		<ul class="actions">
 			<li><a href="{% url 'logs:log' log.id %}" class="button large">Читать</a></li>
 		</ul>
 		<ul class="stats">
-			<li><a href="#">General</a></li>
+			{% if log.owner == request.user  %}
+			<li><a href="{% url 'logs:edit_log' log.id %}">Редактировать запись</a></li>
+			{% endif %} 
 			<li><a href="#" class="icon solid fa-heart">28</a></li>
 			<li><a href="#" class="icon solid fa-comment">128</a></li>
 		</ul>

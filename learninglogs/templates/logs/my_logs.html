@@ -2,15 +2,13 @@
 {% load static %}
 {% load thumbnail %}
 
+{% block title %}Заметки пользователя {{ owner }} {% endblock %}
+
 {% block posts %}
-{% comment %} {% if page_obj is not empty %}
-<article class="post">
-	<p><h3>У вас пока нет записей..</h3></p>
-</article>
-{% endif %} {% endcomment %}
-<article class="post">
 
 {% for log in page_obj %}
+
+<article class="post">
 	<header>
 		<div class="title">
 			<h2><a href="{% url 'logs:log' log.id %}">{{ log.description }}</a></h2>
@@ -23,11 +21,11 @@
 			{% endthumbnail %}
 		</div>
 	</header>
-	<p>
+<p>
 		{% with text=log.text|truncatewords:50 %}
 			{{ text|safe }}
 		{% endwith %}
-	</p>
+	</p> 
 	{% comment %} <p>{{ log.text|safe }}</p> {% endcomment %}
 	<footer>
 		<ul class="actions">
@@ -39,9 +37,12 @@
 			<li><a href="#" class="icon solid fa-comment">128</a></li>
 		</ul>
 	</footer>
-{% empty %}
-	<p><h4>У вас пока нет записей..</h4></p>
-{% endfor %}
 </article>
+
+{% empty %}
+<article class="post">
+	<p><h4>У вас пока нет записей..</h4></p>
+</article>
+	{% endfor %}
 
 {% endblock %}

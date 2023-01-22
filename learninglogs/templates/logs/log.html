@@ -2,8 +2,12 @@
 {% load static %}
 {% load thumbnail %}
 
+{% block title %}{{ log.description }}{% endblock %}
+
 {% block current_post %}
 <header>
+  <script type="text/javascript" src="{% static "ckeditor/ckeditor-init.js" %}"></script>
+<script type="text/javascript" src="{% static "ckeditor/ckeditor/ckeditor.js" %}"></script>
   <div class="title">
     <h3>{{ log.description }}</h3>
     <p><a href="{% url 'logs:group' group.id %}">{{ group.title }}</a></p>
@@ -17,9 +21,10 @@
 </header>
 {% comment %} <span class="image featured"><img src="{% static 'images/pic01.jpg' %}" alt="" /></span> {% endcomment %}
 <p>{{ log.text|safe }}</p>
+<br>
+{% include 'includes/comment.html' %}
 <footer>
   <ul class="stats">
-    <li><a href="#">General</a></li>
     <li><a href="#" class="icon solid fa-heart">28</a></li>
     <li><a href="#" class="icon solid fa-comment">128</a></li>
   </ul>

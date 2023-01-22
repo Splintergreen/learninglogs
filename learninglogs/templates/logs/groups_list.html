@@ -2,6 +2,8 @@
 {% load static %}
 {% load thumbnail %}
 
+{% block title %}LearningLogs{% endblock %}
+
 {% block posts %}
 
 {% for group in page_obj %}
@@ -28,11 +30,6 @@
 	<footer>
 		<ul class="actions">
 			<li><a href={% url 'logs:group' group.id %} class="button large">Читать</a></li>
-		</ul>
-		<ul class="stats">
-			<li><a href="#">General</a></li>
-			<li><a href="#" class="icon solid fa-heart">28</a></li>
-			<li><a href="#" class="icon solid fa-comment">128</a></li>
 		</ul>
 	</footer>
 </article>

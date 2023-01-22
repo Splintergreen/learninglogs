@@ -1,0 +1,39 @@
+{% load user_filters %}
+            
+{% if user.is_authenticated %}
+  <div class="card my-4">
+    <h5 class="card-header">Добавить комментарий:</h5>
+    <div class="card-body">
+      <form method="post" action="{% url 'logs:add_comment' log.id %}">
+        {% csrf_token %}      
+        <div class="form-group mb-2">
+          {{ form.text|addclass:"form-control" }}
+        </div>
+        <button type="submit" class="btn btn-primary">Отправить</button>
+      </form>
+    </div>
+  </div>
+{% endif %}
+
+{% for comment in comments %}
+<article class="post">
+  <div class="media mb-4">
+    <div class="media-body">
+      <h5 class="mt-0">
+        <a href="{% url 'logs:user_logs' comment.author.get_username %}">{{ comment.author.username }}</a>
+      </h5>
+      <p>
+        {{ comment.text|safe }}
+      </p>
+      
+    </div>
+  </div>
+  <footer>
+    <ul class="stats">
+      <li><a href="#" class="icon solid fa-heart">28</a></li>
+      <li><a href="#" class="icon solid fa-comment">128</a></li>
+    </ul>
+  </footer>
+</article>
+
+{% endfor %}

@@ -1,7 +1,7 @@
 from django.shortcuts import render
-from .models import Log, Group, User
+from .models import Log, Group, User, Comment
 from django.shortcuts import get_object_or_404, redirect
-from .forms import LogForm, ProfileForm
+from .forms import LogForm, ProfileForm, CommentForm
 from django.contrib.postgres.search import SearchVector
 from django.contrib.auth.decorators import login_required
 from utils import paginator
@@ -36,8 +36,10 @@ def log(request, pk):
     """Show a single log and all its entries."""
     log = get_object_or_404(Log, pk=pk)
     group = Group.objects.filter(logs=log.id).first()
+    comments = Comment.objects.filter(log_id=log.pk)
+    form = CommentForm(request.POST or None)
     template = 'logs/log.html'
-    context = {'log': log, 'group': group}
+    context = {'log': log, 'group': group, 'form': form, 'comments': comments}
     return render(request, template, context)
 
 
@@ -100,8 +102,9 @@ def user_logs(request, username):
     """Show all logs created by the current user."""
     user = get_object_or_404(User, username=username)
     logs = Log.objects.filter(owner_id=user.id).order_by('date_added')
+    page_obj = paginator.page(logs, request)
     template = 'logs/my_logs.html'
-    context = {'logs': logs}
+    context = {'page_obj': page_obj}
     return render(request, template, context)
 
 
@@ -120,3 +123,15 @@ def profile_settings(request):
         return redirect('logs:my_logs')
     context = {'user': user, 'form': form, }
     return render(request, template, context)
+
+
+@login_required
+def add_comment(request, pk):
+    log = get_object_or_404(Log, pk=pk)
+    form = CommentForm(request.POST or None)
+    if form.is_valid():
+        comment = form.save(commit=False)
+        comment.author = request.user
+        comment.log = log
+        comment.save()
+    return redirect('logs:log', pk=pk)

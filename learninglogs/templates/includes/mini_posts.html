@@ -18,16 +18,32 @@
 <section>
     <ul class="posts">
         <li>
+            {% comment %} <div class="title">
+                <h2><a href="{% url 'logs:log' post.id %}">{{ post.description }}</a></h2>
+                {% comment %} <p>{% url 'logs:log' log.id %}</p> {% endcomment %}
+            {% comment %} </div> {% endcomment %} 
             <article>
                 <header>
+                <h3><a href="{% url 'logs:log' post.id %}">{{ post.description }}</a></h3>
+                <time class="published" datetime="#">{{ post.date_added|date:"d E Y" }}</time>
+                {% comment %} <a href="{% url 'logs:user_logs' post.owner.get_username %}" class="author"><span class="name">Добавил: {{ post.owner.get_username }}</span></a> {% endcomment %}
+                {% thumbnail post.owner.avatar "50x50" crop="center" upscale=True as im %}
+                <a href="{% url 'logs:user_logs' post.owner.get_username %}" class="author"><span class="name">Добавил: {{ post.owner.get_username }}</span><img src="{{ im.url }}" alt="" /></a>
+                {% endthumbnail %}
+                </header>
+                {% comment %} <header>
                     <h3><a href="{% url 'logs:log' post.id %}">{{ post.description }}</a></h3>
+                    {% with text=post.text|truncatewords:15 %}
+			            {{ text }}
+		            {% endwith %}
                     <time class="published" datetime="#">{{ post.date_added|date:"d E Y" }}</time>
-                    {% thumbnail post.owner.avatar "100x100" crop="center" upscale=True as im %}
+                    {% thumbnail post.owner.avatar "50x50" crop="center" upscale=True as im %}
                         <a href="#" class="author"><img src="{{ im.url }}" alt="" /></a>
                     {% endthumbnail %}
-            </header>
+            </header> {% endcomment %}
         
             </article>
+            {% if not forloop.last %}<hr>{% endif %}
         </li>
     </ul>
 </section>
