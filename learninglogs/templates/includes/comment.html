@@ -30,10 +30,14 @@
   </div>
   <footer>
     <ul class="stats">
+      {% comment %} <button href="{% url 'logs:delete_comment' comment.id %}">Удалить</button> {% endcomment %}
+
       <li><a href="#" class="icon solid fa-heart">28</a></li>
       <li><a href="#" class="icon solid fa-comment">128</a></li>
     </ul>
   </footer>
+{% comment %} <script src="{%static 'assets/css/trash.svg' %}"></script> {% endcomment %}
+
 </article>
 
 {% endfor %}

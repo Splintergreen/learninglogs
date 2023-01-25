@@ -21,20 +21,17 @@
 			{% endthumbnail %}
 		</div>
 	</header>
-<p>
-		{% with text=log.text|truncatewords:50 %}
-			{{ text|safe }}
-		{% endwith %}
-	</p> 
-	{% comment %} <p>{{ log.text|safe }}</p> {% endcomment %}
+	<p>{{ log.text|safe|truncatechars_html:100 }}</p>
 	<footer>
 		<ul class="actions">
 			<li><a href="{% url 'logs:log' log.id %}" class="button large">Читать</a></li>
 		</ul>
 		<ul class="stats">
-			<li><a href="#">General</a></li>
-			<li><a href="#" class="icon solid fa-heart">28</a></li>
-			<li><a href="#" class="icon solid fa-comment">128</a></li>
+			{% if log.owner == request.user  %}
+			<li><a href="{% url 'logs:edit_log' log.id %}">Редактировать запись</a></li>
+			{% endif %} 
+			<li><a href="#" onclick="return false;" class="icon solid fa-heart">{{ log.likes.count }}</a></li>
+			<li><a href="#" onclick="return false;" class="icon solid fa-comment">{{ log.comments.count }}</a></li>
 		</ul>
 	</footer>
 </article>

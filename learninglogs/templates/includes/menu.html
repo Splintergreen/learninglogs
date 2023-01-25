@@ -18,7 +18,7 @@
     <ul class="links">
         <li><a href="{% url 'logs:my_logs' %}"><h3>Мои заметки</h3></a></li>
         <li><a href="{% url 'logs:create_log' %}"><h3>Добавить заметку</h3></a></li>
-        <li><a href="#"><h3>Подписки</h3></a></li>
+        <li><a href="{% url 'logs:favorite' %}"><h3>Избранное</h3></a></li>
         <li><a href="{% url 'logs:profile_settings' %}"><h3>Настройки профиля</h3></a></li>
     </ul>
 </section>

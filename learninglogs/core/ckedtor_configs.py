@@ -63,6 +63,7 @@ MYCONFIG = {
         # 'filebrowserWindowHeight': 725,
         # 'filebrowserWindowWidth': 940,
         # 'toolbarCanCollapse': True,
+        "removePlugins": "exportpdf",
         'tabSpaces': 4,
         'extraPlugins': ','.join([
             'uploadimage',
@@ -118,6 +119,7 @@ MYCONFIG = {
         'width': '200%',
         # 'filebrowserWindowHeight': 725,
         # 'filebrowserWindowWidth': 940,
+        "removePlugins": "exportpdf",
         'tabSpaces': 4,
         'extraPlugins': ','.join([
             'uploadimage',

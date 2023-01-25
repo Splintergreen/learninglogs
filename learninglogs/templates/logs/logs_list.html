@@ -18,13 +18,7 @@
 			{% endthumbnail %}
 		</div>
 	</header>
-	{% comment %} <a href="single.html" class="image featured"><img src="images/pic02.jpg" alt="" /></a> {% endcomment %}
-	<p>
-		{% with text=log.text|truncatewords:50 %}
-			{{ text|safe }}
-		{% endwith %}
-	</p>
-	{% comment %} <p>{{ log.text|safe }}</p> {% endcomment %}
+	<p>{{ log.text|safe|truncatechars_html:100 }}</p>
 	<br>
 	<footer>
 		<ul class="actions">
@@ -34,8 +28,8 @@
 			{% if log.owner == request.user  %}
 			<li><a href="{% url 'logs:edit_log' log.id %}">Редактировать запись</a></li>
 			{% endif %} 
-			<li><a href="#" class="icon solid fa-heart">28</a></li>
-			<li><a href="#" class="icon solid fa-comment">128</a></li>
+			<li><a href="#" onclick="return false;" class="icon solid fa-heart">{{ log.likes.count }}</a></li>
+			<li><a href="#" onclick="return false;" class="icon solid fa-comment">{{ log.comments.count }}</a></li>
 		</ul>
 	</footer>
 </article>

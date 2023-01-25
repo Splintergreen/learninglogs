@@ -4,7 +4,7 @@
 <nav class="links">
 	<ul>
 		{% comment %} <li><a href={% url "logs:groups_list" %}>Заметки</a></li> {% endcomment %}
-		<li><a href="#">Ссылки на документацию</a></li>
+		{% comment %} <li><a href="#">Ссылки на документацию</a></li> {% endcomment %}
 		
         {% if user.is_authenticated %}
             <li><a href="{% url 'logs:my_logs' %}">Мои заметки</a></li>

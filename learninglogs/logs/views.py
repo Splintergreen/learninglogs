@@ -5,6 +5,8 @@ from .forms import LogForm, ProfileForm, CommentForm
 from django.contrib.postgres.search import SearchVector
 from django.contrib.auth.decorators import login_required
 from utils import paginator
+from django.http import JsonResponse
+import json
 
 
 def index(request):
@@ -39,8 +41,38 @@ def log(request, pk):
     comments = Comment.objects.filter(log_id=log.pk)
     form = CommentForm(request.POST or None)
     template = 'logs/log.html'
-    context = {'log': log, 'group': group, 'form': form, 'comments': comments}
+    is_liked = False
+    if log.likes.filter(id=request.user.id).exists():
+        is_liked = True
+
+    context = {
+        'log': log,
+        'group': group,
+        'form': form,
+        'comments': comments,
+        'is_liked': is_liked,
+    }
     return render(request, template, context)
+
+
+def like(request):
+    """Like a log."""
+    data = json.loads(request.body)
+    log = get_object_or_404(Log, pk=data["id"])
+    checker = None
+    if request.user.is_authenticated:
+        if log.likes.filter(id=request.user.id).exists():
+            log.likes.remove(request.user)
+            checker = 0
+        else:
+            log.likes.add(request.user)
+            checker = 1
+    likes = log.likes.count()
+    info = {
+        "check": checker,
+        "num_of_likes": likes,
+    }
+    return JsonResponse(info, safe=False)
 
 
 @login_required
@@ -135,3 +167,20 @@ def add_comment(request, pk):
         comment.log = log
         comment.save()
     return redirect('logs:log', pk=pk)
+
+
+# def delete_comment(request, pk):
+#     comment = get_object_or_404(Comment, pk=pk)
+#     if request.user == comment.author:
+#         comment.delete()
+#     return redirect('logs:log', pk=comment.log.pk)
+
+
+def favorite_logs(request):
+    """Show liked logs for the current user."""
+    user = request.user
+    logs = user.likes.all()
+    page_obj = paginator.page(logs, request)
+    template = 'logs/my_logs.html'
+    context = {'page_obj': page_obj}
+    return render(request, template, context)

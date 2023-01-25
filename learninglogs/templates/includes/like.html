@@ -1,0 +1,62 @@
+<footer>
+    <ul class="stats">
+        {% if is_liked %}
+            <li><i class="icon solid fa-heart" name="{{ log.id }}" value="id"><a class="num-of-likes" id ="num">{{ log.likes.count }}</a></i> </li>
+        {% else %}
+            <li><i class="icon fa-heart" name="{{ log.id }}" value="id"></i><a class="num-of-likes" id ="num">{{ log.likes.count }}</a></li>
+        {% endif %}
+            <li><a href="#comments" onclick="return false;" class="icon solid fa-comment">{{ log.comments.count }}</a></li>
+            {% comment %} <li><i class="icon solid fa-comment">{{ log.comments.count }}</i></li> {% endcomment %}
+
+    </ul>
+</footer>
+
+<script>
+  function getCookie(name) {
+    let cookieValue = null;
+    if (document.cookie && document.cookie !== '') {
+        const cookies = document.cookie.split(';');
+        for (let i = 0; i < cookies.length; i++) {
+            const cookie = cookies[i].trim();
+            // Does this cookie string begin with the name we want?
+            if (cookie.substring(0, name.length + 1) === (name + '=')) {
+                cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                break;
+            }
+        }
+    }
+    return cookieValue;
+}
+const csrftoken = getCookie('csrftoken');
+
+  let btn = document.querySelector("i")
+  let num_of_likes = document.getElementById("num")
+  let log_id = "{{log.id}}"
+  let author = "{{ author.username }}"
+
+  btn.addEventListener("click", likePost)
+
+  function likePost(e){
+    let url = "{% url 'logs:like' %}"
+    const data = {id:log_id}
+
+    fetch(url, {
+      method: 'POST',
+      headers: {"Content-Type": "application/json",
+      'X-CSRFToken': csrftoken
+    },
+      body : JSON.stringify(data)
+    })
+    .then(res => res.json())
+    .then(data => {
+      if(data["check"] == 1){
+        btn.classList.add('solid')
+      }
+
+      else if(data["check"] == 0){
+        btn.classList.remove('solid')
+      }
+      num_of_likes.innerHTML = data["num_of_likes"]
+    })
+  }
+</script>

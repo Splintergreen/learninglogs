@@ -21,10 +21,7 @@
 	</header>
 	{% comment %} <a href="single.html" class="image featured"><img src="{% static 'images/pic01.jpg' %}" alt="" /></a> {% endcomment %}
 	<p>
-		{% comment %} {% with description=group.description|safe %}
-			{{ description|slice:"65" }}
-		{% endwith %} {% endcomment %}
-		{{ group.description|safe }}
+		{{ group.description|safe|truncatechars_html:50 }}
 	</p>
 	
 	<footer>

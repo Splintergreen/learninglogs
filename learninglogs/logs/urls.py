@@ -25,5 +25,6 @@ urlpatterns = [
     path('my-logs/', views.my_logs, name='my_logs'),
     path('user/<str:username>/logs/', views.user_logs, name='user_logs'),
     path('profile/', views.profile_settings, name='profile_settings'),
-    # path('contacts/', views.contacts, name='contacts')
+    path('like/', views.like, name="like"),
+    path('favorite/', views.favorite_logs, name="favorite"),
 ]

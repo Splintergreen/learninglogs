@@ -16,7 +16,7 @@
 		</div>
 	</header>
 	{% comment %} <a href="single.html" class="image featured"><img src="images/pic02.jpg" alt="" /></a> {% endcomment %}
-	<p>{{ result.text|safe }}</p>
+	<p>{{ result.text|safe|truncatechars_html:100 }}</p>
 	<footer>
 		<ul class="actions">
 			<li><a href="{% url 'logs:log' result.id %}" class="button large">Читать</a></li>

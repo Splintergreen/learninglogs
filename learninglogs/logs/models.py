@@ -32,10 +32,15 @@ class Log(models.Model):
     description = models.TextField(max_length=50)
     date_added = models.DateTimeField(auto_now_add=True)
     owner = models.ForeignKey(User, on_delete=models.CASCADE)
+    likes = models.ManyToManyField(User, related_name='likes', blank=True)
     image = models.ImageField('Картинка',
                               upload_to='posts/',
                               blank=True
                               )
+
+    @property
+    def total_likes(self):
+        return self.likes.count()
 
     def __str__(self):
         """Return a string representation of the model."""
@@ -83,6 +88,10 @@ class Comment(models.Model):
     )
     text = RichTextUploadingField(config_name='comment')
     created = models.DateTimeField(auto_now_add=True)
+
+    @property
+    def total_comments(self):
+        return self.count()
 
     class Meta:
         ordering = ['-created', 'author', 'log']
