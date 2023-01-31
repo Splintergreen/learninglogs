@@ -60,7 +60,8 @@ class Group(models.Model):
     owner = models.ForeignKey(User, on_delete=models.CASCADE)
     logs = models.ManyToManyField(
         Log,
-        related_name='groups'
+        related_name='groups',
+        blank=True
     )
 
     def __str__(self):

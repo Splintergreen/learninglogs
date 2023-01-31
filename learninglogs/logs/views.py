@@ -151,8 +151,8 @@ def profile_settings(request):
     if user.is_anonymous:
         return redirect('logs:index')
     if form.is_valid():
-        form.save()
-        return redirect('logs:my_logs')
+        form.save(commit=False)
+        return redirect('logs:profile_settings')
     context = {'user': user, 'form': form, }
     return render(request, template, context)
 

@@ -29,12 +29,15 @@
         {% thumbnail request.user.avatar "200x200" crop="center" upscale=True as im %}
           <a class="image" style="left: 35%;"><img src="{{ im.url }}" alt="" /></a>
         {% endthumbnail %}
-        {% comment %} {% thumbnail request.user.avatar "200x200" crop="center" upscale=False as im %}
-					<a href="#menu"><img src="{{ im.url }}" alt="Avatar" class="avatar"></a>
-        {% endthumbnail %} {% endcomment %}
-        {{ form.as_p|safe }}
+        <p>
+          <label for="id_avatar">Аватар:</label>
+      <input type="file" name="avatar" accept="image/*" id="id_avatar">
+          
+          
+        </p>
+        {% comment %} {{ form.as_p|safe }} {% endcomment %}
         <div class="form-group">
-          <button type="submit" name="">Сохранить изменения</button>
+          <button type="submit">Сохранить изменения</button>
         </div>
       </form>
     </div>
