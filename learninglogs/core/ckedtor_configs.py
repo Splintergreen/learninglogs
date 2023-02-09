@@ -51,7 +51,7 @@ MYCONFIG = {
              'items': [
                 'TextColor',
                 'BGColor',
-                'Image',
+                # 'Image',
                 'CodeSnippet',
                 'Youtube',
                 'Preview'
@@ -109,7 +109,7 @@ MYCONFIG = {
              'items': [
                 'TextColor',
                 'BGColor',
-                'Image',
+                # 'Image',
                 'CodeSnippet',
                 'Youtube',
                 ]},
