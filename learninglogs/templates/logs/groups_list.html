@@ -15,13 +15,15 @@
 		<div class="meta">
 			<time class="published" datetime="#">{{ group.date_added|date:"d E Y" }}</time>
 			{% thumbnail group.owner.avatar "100x100" crop="center" upscale=True as im %}
-				<a href="{% url 'logs:user_logs' group.owner.get_username %}" class="author"><span class="name">Добавил: {{ group.owner.get_username }}</span><img src="{{ im.url }}" alt="" /></a>
+				<a href="{% url 'logs:user_logs' group.owner.get_username %}" class="author"><span class="name">{{ group.owner.get_username }}</span><img src="{{ im.url }}" alt="" /></a>
 			{% endthumbnail %}
 		</div>
 	</header>
 	{% comment %} <a href="single.html" class="image featured"><img src="{% static 'images/pic01.jpg' %}" alt="" /></a> {% endcomment %}
 	<p>
-		{{ group.description|safe|truncatechars_html:50 }}
+		<!-- {{ group.description|safe|truncatechars_html:50 }} -->
+		{{ group.description|safe }}
+
 	</p>
 	
 	<footer>
