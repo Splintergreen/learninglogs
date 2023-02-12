@@ -143,7 +143,7 @@ def user_logs(request, username):
 @login_required
 def profile_settings(request):
     """Edit an existing log."""
-    user = request.user
+    user = get_object_or_404(User, id=request.user.id)
     template = 'logs/profile_settings.html'
     form = ProfileForm(
         request.POST or None, files=request.FILES or None, instance=user
@@ -151,7 +151,7 @@ def profile_settings(request):
     if user.is_anonymous:
         return redirect('logs:index')
     if form.is_valid():
-        form.save(commit=False)
+        form.save()
         return redirect('logs:profile_settings')
     context = {'user': user, 'form': form, }
     return render(request, template, context)

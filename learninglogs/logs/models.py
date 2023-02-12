@@ -1,9 +1,8 @@
 from django.db import models
-# from django.contrib.auth import get_user_model
 from django.contrib.auth.models import AbstractUser
 from ckeditor.fields import RichTextField
 from ckeditor_uploader.fields import RichTextUploadingField
-# User = get_user_model()
+from utils.image_resize import image_resize
 
 
 class User(AbstractUser):
@@ -24,6 +23,10 @@ class User(AbstractUser):
         ordering = ['username']
         verbose_name = 'Пользователь'
         verbose_name_plural = 'Пользователи'
+
+    def save(self, *args, **kwargs):
+        image_resize(self.avatar, self.username, 512, 512)
+        super().save(*args, **kwargs)
 
 
 class Log(models.Model):

@@ -19,7 +19,6 @@ class ProfileForm(ModelForm):
             'avatar',
             'first_name',
             'last_name',
-            'email',
             'about',
             'skills',
         )

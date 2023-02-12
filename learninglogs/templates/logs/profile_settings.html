@@ -14,29 +14,31 @@
       <h1>Профиль</h1>
     </div>
     <div class="form-content">
-      <!-- {% comment %} {% if form.errors %}
-        {% for field in form %}
-          {% for error in field.errors %}            
-            <div class="alert alert-danger">{{ error|escape }}</div>
-          {% endfor %}
-        {% endfor %}
-        {% for error in form.non_field_errors %}
-          <div class="alert alert-danger">{{ error|escape }}</div>
-        {% endfor %}
-      {% endif %} {% endcomment %}
-      <form method="post">
+      <form method="post" enctype="multipart/form-data" action="">
         {% csrf_token %}
         {% thumbnail request.user.avatar "200x200" crop="center" upscale=True as im %}
           <a class="image" style="left: 35%;"><img src="{{ im.url }}" alt="" /></a>
         {% endthumbnail %}
         <p>
           <label for="id_avatar">Аватар:</label>
-      <input type="file" name="avatar" accept="image/*" id="id_avatar">
-          
-          
+          <input type="file" name="avatar" accept="image/*" id="id_avatar">
         </p>
-        {% comment %} {{ form.as_p|safe }} {% endcomment %} -->
-        {{ form.as_p }}
+        <p>
+          <label for="id_first_name">Имя:</label>
+          {{ form.first_name }}          
+        </p>
+        <p>
+          <label for="id_last_name">Фамилия:</label>
+          {{ form.last_name }}          
+        </p>
+        <p>
+          <label for="id_about">About:</label>
+          {{ form.about }}          
+        </p>
+        <p>
+          <label for="id_skills">Skills:</label>
+          {{ form.skills }}
+      </textarea>
         <div class="form-group">
           <button type="submit">Сохранить изменения</button>
         </div>
