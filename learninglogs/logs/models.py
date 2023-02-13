@@ -25,7 +25,7 @@ class User(AbstractUser):
         verbose_name_plural = 'Пользователи'
 
     def save(self, *args, **kwargs):
-        image_resize(self.avatar, self.username, 512, 512)
+        image_resize(self.avatar, self.username, 200, 200)
         super().save(*args, **kwargs)
 
 

@@ -18,7 +18,7 @@ image_types = {
 
 def image_resize(image, username, width, height):
     img = Image.open(image)
-    image_name = f'{username}{datetime.datetime.now(tz=tz)}'
+    image_name = f'{username}_{datetime.datetime.now(tz=tz)}'
     if img.width > width or img.height > height:
         output_size = (width, height)
         img.thumbnail(output_size)
