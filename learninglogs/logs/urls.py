@@ -18,7 +18,11 @@ urlpatterns = [
         views.add_comment,
         name='add_comment'
     ),
-    # path('logs/', views.logs, name='log_list'),
+    path(
+        'comment/<int:pk>/delete/',
+        views.delete_comment,
+        name='delete_comment'
+    ),
     path('group/<int:pk>/', views.group, name='group'),
     path('log/<int:pk>/', views.log, name='log'),
     path('search/', views.search, name='search'),

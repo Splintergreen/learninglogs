@@ -169,11 +169,12 @@ def add_comment(request, pk):
     return redirect('logs:log', pk=pk)
 
 
-# def delete_comment(request, pk):
-#     comment = get_object_or_404(Comment, pk=pk)
-#     if request.user == comment.author:
-#         comment.delete()
-#     return redirect('logs:log', pk=comment.log.pk)
+def delete_comment(request, pk):
+    comment = get_object_or_404(Comment, pk=pk)
+    print('delete')
+    if request.user == comment.author:
+        comment.delete()
+    return redirect('logs:log', pk=comment.log.pk)
 
 
 def favorite_logs(request):
