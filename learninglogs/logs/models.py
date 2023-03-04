@@ -91,6 +91,12 @@ class Comment(models.Model):
         related_name='comments'
     )
     text = RichTextUploadingField(config_name='comment')
+    reply = models.ForeignKey(
+        'Comment',
+        on_delete=models.CASCADE,
+        null=True,
+        related_name="replies"
+    )
     created = models.DateTimeField(auto_now_add=True)
 
     @property
@@ -100,4 +106,4 @@ class Comment(models.Model):
     class Meta:
         ordering = ['-created', 'author', 'log']
         verbose_name = 'Комментарий'
-        verbose_name_plural = 'Комментарии'
+        verbose_name_plural = 'Комментариев'

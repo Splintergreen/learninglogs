@@ -13,11 +13,11 @@ urlpatterns = [
         views.edit_log,
         name='edit_log'
     ),
-    path(
-        'log/<int:pk>/comment/',
-        views.add_comment,
-        name='add_comment'
-    ),
+    # path(
+    #     'log/<int:pk>/comment/',
+    #     views.add_comment,
+    #     name='add_comment'
+    # ),
     # path('logs/', views.logs, name='log_list'),
     path('group/<int:pk>/', views.group, name='group'),
     path('log/<int:pk>/', views.log, name='log'),

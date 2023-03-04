@@ -53,13 +53,9 @@
       </div>
       <br>
       <div>
-        <label for="id_group" >Выберите тематику<span class="required text-danger" >*</span></label>
-        <select name="{{ form.group.name }}" style="background-color:white;">
-          {% for instance in form.group %}
-              {{ instance }}
-          {% endfor %}
+        <label for="id_group">Выберите тематику<span class="required text-danger" >*</span></label>
+          {{ form.group }}          
         </select>
-        {% comment %} {{ form.group.value }} {% endcomment %}
       </div>
       <br>
         <div>

@@ -1,43 +1,95 @@
 {% load user_filters %}
-            
-{% if user.is_authenticated %}
-  <div class="card my-4">
-    <h5 class="card-header">Добавить комментарий:</h5>
-    <div class="card-body">
-      <form method="post" action="{% url 'logs:add_comment' log.id %}">
-        {% csrf_token %}      
-        <div class="form-group mb-2">
-          {{ form.text|addclass:"form-control" }}
-        </div>
+{% comment %} {% load static %}
+<div class="main-comment-section">
+<div class="container-fluid mt-2">
+  <div class="form-group row">
+    <form method="post" class="comment-form" action=".">
+      {% csrf_token %}
+      {{ form.text }}
+      {% if request.user.is_authenticated %}
+        {% comment %} <input type="submit" value="Submit" class="btn btn-outline-success"> {% endcomment %
         <button type="submit" class="btn btn-primary">Отправить</button>
+
+      {% endif %}
+    </form>
+  </div>
+</div> {% endcomment %}
+<div class="main-comment-section">          
+  {% comment %} {% load user_filters %} {% endcomment %}
+            
+  {% if user.is_authenticated %}
+    <div class="card my-4">
+      <h5 class="card-header">Добавить комментарий:</h5>
+      <div class="card-body">
+    <form method="post" class="comment-form" action=".">
+
+          {% csrf_token %}      
+          <div class="form-group mb-2">
+            {{ form.text }}
+          </div>
+          <button type="submit" class="btn btn-primary">Отправить</button>
+        </form>
+      </div>
+    </div>
+  {% endif %}
+  
+  {% for comment in comments %}
+  <article class="post">
+    <div class="media mb-4">
+      <div class="media-body">
+        <h5 class="mt-0">
+          <a href="{% url 'logs:user_logs' comment.author.get_username %}">{{ comment.author.username }}</a>
+        </h5>
+        <p>
+          {{ comment.text|safe }}
+        </p>
+        
+      </div>
+    </div>
+    <footer>
+      <ul class="stats">
+        {% comment %} <button href="{% url 'logs:delete_comment' comment.id %}">Удалить</button> {% endcomment %}
+  
+        <li><a href="#" class="icon solid fa-heart">28</a></li>
+        <li><a href="#" class="icon solid fa-comment">128</a></li>
+      </ul>
+    </footer>
+  {% comment %} <script src="{%static 'assets/css/trash.svg' %}"></script> {% endcomment %}
+  
+  </article>
+  
+  {% endfor %}
+  
+    </div>
+{% comment %} Комментарии ({{ comments.count }})
+{% for comment in comments %}
+  <blockquote class="blockquote">
+    <p class="mb-0"><small>{{ comment.text|safe }}</small></p>
+    <footer class="blockquote-footer"><small>by <cite title="Source Title">{{ comment.author|capfirst }}</cite></small>
+      {% if request.user.is_authenticated %}
+      <button type="button" name="button" class="reply-btn btn btn-outline-dark btn-sm ml-2">Ответить ({{ comment.replies.count }})</button>
+      {% endif %}
+    </footer>
+  </blockquote> {% endcomment %}
+{% comment %} 
+  <div class="replied-comments container mt-2" style="display:none;">
+    {% for reply in comment.replies.all %}
+    <blockquote class="blockquote">
+      <p class="mb-0"><small>{{ reply.text|safe }}</small></p>
+      <footer class="blockquote-footer"><small>by <cite title="Source Title">{{ reply.author|capfirst }}</cite></small>
+    </footer>
+    </blockquote>
+    {% endfor %}
+    <div class="form-group row">
+      <form method="post" class="reply-form" action=".">
+        {% csrf_token %}
+        <input type="hidden" name="comment_id" value="{{ comment.id }}">
+        {{ form.text }}
+        {% if request.user.is_authenticated %}
+          <input type="submit" value="Submit" class="btn btn-outline-success">{{ comment.replies.count }}
+        {% endif %}
       </form>
     </div>
   </div>
-{% endif %}
-
-{% for comment in comments %}
-<article class="post">
-  <div class="media mb-4">
-    <div class="media-body">
-      <h5 class="mt-0">
-        <a href="{% url 'logs:user_logs' comment.author.get_username %}">{{ comment.author.username }}</a>
-      </h5>
-      <p>
-        {{ comment.text|safe }}
-      </p>
-      
-    </div>
-  </div>
-  <footer>
-    <ul class="stats">
-      {% comment %} <button href="{% url 'logs:delete_comment' comment.id %}">Удалить</button> {% endcomment %}
-
-      <li><a href="#" class="icon solid fa-heart">28</a></li>
-      <li><a href="#" class="icon solid fa-comment">128</a></li>
-    </ul>
-  </footer>
-{% comment %} <script src="{%static 'assets/css/trash.svg' %}"></script> {% endcomment %}
-
-</article>
-
 {% endfor %}
+</div> {% endcomment %}

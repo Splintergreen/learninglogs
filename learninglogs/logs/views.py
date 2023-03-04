@@ -7,6 +7,7 @@ from django.contrib.auth.decorators import login_required
 from utils import paginator
 from django.http import JsonResponse
 import json
+from django.template.loader import render_to_string
 
 
 def index(request):
@@ -38,20 +39,43 @@ def log(request, pk):
     """Show a single log and all its entries."""
     log = get_object_or_404(Log, pk=pk)
     group = Group.objects.filter(logs=log.id).first()
-    comments = Comment.objects.filter(log_id=log.pk)
+    comments = Comment.objects.filter(log_id=log.pk, reply=None)
     form = CommentForm(request.POST or None)
     template = 'logs/log.html'
     is_liked = False
     if log.likes.filter(id=request.user.id).exists():
         is_liked = True
+    if request.method == 'POST':
+        if form.is_valid():
+            text = request.POST.get('text')
+            reply_id = request.POST.get('comment_id')
+            comment_qs = None
+            if reply_id:
+                comment_qs = Comment.objects.get(id=reply_id)
+            comment = Comment.objects.create(
+                log=log,
+                author=request.user,
+                text=text,
+                reply=comment_qs
+            )
+            print('comment_create')
+            comment.save()
 
     context = {
         'log': log,
         'group': group,
-        'form': form,
         'comments': comments,
+        'form': form,
         'is_liked': is_liked,
     }
+    if request.headers.get('x-requested-with') == 'XMLHttpRequest':
+        html = render_to_string(
+            'includes/comment.html',
+            context,
+            request=request
+        )
+        return JsonResponse({'form': html})
+
     return render(request, template, context)
 
 
@@ -157,17 +181,49 @@ def profile_settings(request):
     return render(request, template, context)
 
 
-@login_required
-def add_comment(request, pk):
-    log = get_object_or_404(Log, pk=pk)
-    form = CommentForm(request.POST or None)
-    if form.is_valid():
-        comment = form.save(commit=False)
-        comment.author = request.user
-        comment.log = log
-        comment.save()
-    return redirect('logs:log', pk=pk)
+# @login_required
+# def add_comment(request, pk):
+#     log = get_object_or_404(Log, pk=pk)
+#     form = CommentForm(request.POST or None)
+#     if form.is_valid():
+#         comment = form.save(commit=False)
+#         comment.author = request.user
+#         comment.log = log
+#         comment.save()
+#     return redirect('logs:log', pk=pk)
 
+# def add_comment(request, pk):
+    # log = get_object_or_404(Log, id=pk)
+    # comments = Comment.objects.filter(log=log, reply=None).order_by('-id')
+    # if request.method == 'POST':
+    #     comment_form = CommentForm(request.POST or None)
+    #     if comment_form.is_valid():
+    #         content = request.POST.get('content')
+    #         reply_id = request.POST.get('comment_id')
+    #         comment_qs = None
+    #         if reply_id:
+    #             comment_qs = Comment.objects.get(id=reply_id)
+    #         comment = Comment.objects.create(
+    #             log=log,
+    #             author=request.user,
+    #             text=content,
+    #             reply=comment_qs
+    #         )
+    #         comment.save()
+    #         # return HttpResponseRedirect(post.get_absolute_url())
+    # else:
+    #     comment_form = CommentForm()
+
+    # context = {
+    #     'log': log,
+    #     'comments': comments,
+    #     'comment_form': comment_form,
+    # }
+    # if request.headers.get('x-requested-with') == 'XMLHttpRequest':
+    #     html = render_to_string('blog/comments.html', context, request=request)
+    #     return JsonResponse({'form': html})
+
+    # return redirect('logs:log', pk=pk) # render(request, 'logs/log.html', context)
 
 # def delete_comment(request, pk):
 #     comment = get_object_or_404(Comment, pk=pk)

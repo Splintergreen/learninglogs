@@ -23,7 +23,45 @@
 <p>{{ log.text|safe }}</p>
 <br>
 {% include 'includes/like.html' %}
-
 {% include 'includes/comment.html' %}
 
+<script src="{% static 'assets/js/jquery.min.js' %}"></script>
+
+<script type="text/javascript">
+  $('.reply-btn').click(function() {
+    $(this).parent().parent().next('.replied-comments').fadeToggle()
+  });
+
+
+  $(function(){
+    setTimeout(function(){
+      $('.alert').slideUp(2000);
+    }, 5000);
+  });
+
+  $(document).on('submit', '.comment-form', function(event){
+    event.preventDefault();
+    $.ajax({
+      type: 'POST',
+      url: $(this).attr('action'),
+      data: $(this).serialize(),
+      dataType: 'json',
+      success: function(response) {
+        $('.main-comment-section').html(response['form']);
+        $('textarea').val('');
+        $('.reply-btn').click(function() {
+          $(this).parent().parent().next('.replied-comments').fadeToggle();
+          $('textarea').val('');
+        });
+      },
+      error: function(rs, e) {
+        console.log(rs.responseText);
+      },
+    });
+  });
+
+
+
+
+</script>
 {% endblock %}
