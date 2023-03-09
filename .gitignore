@@ -149,4 +149,4 @@ dmypy.json
 static/
 media/
 
-
+test.py

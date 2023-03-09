@@ -8,6 +8,9 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 
 SECRET_KEY = os.getenv('SECRET_KEY')
 
+TELEGRAM_TOKEN = os.getenv('TELEGRAM_TOKEN')
+WEBHOOK_URL = os.getenv('WEBHOOK_URL')
+
 DEBUG = False
 
 ALLOWED_HOSTS = ['*']
@@ -26,6 +29,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'logs.apps.LogsConfig',
+    'learning_bot.apps.LearningBotConfig',
     'users.apps.UsersConfig',
     'core.apps.CoreConfig',
     'sass_processor',
