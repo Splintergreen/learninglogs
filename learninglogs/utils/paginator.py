@@ -1,6 +1,6 @@
 from django.core.paginator import Paginator
 
-PAGE_NUM = 2
+PAGE_NUM = 4
 
 
 def page(query, request):
