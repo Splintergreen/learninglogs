@@ -1,7 +1,8 @@
-from pathlib import Path
-from dotenv import load_dotenv
 import os
+from pathlib import Path
+
 from core.ckedtor_configs import MYCONFIG
+from dotenv import load_dotenv
 
 load_dotenv()
 BASE_DIR = Path(__file__).resolve().parent.parent

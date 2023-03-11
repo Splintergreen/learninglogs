@@ -1,7 +1,7 @@
+from django import forms
 from django.forms import ModelForm
 
-from .models import Log, Group, User, Comment
-from django import forms
+from .models import Comment, Group, Log, User
 
 
 class LogForm(ModelForm):

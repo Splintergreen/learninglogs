@@ -1,9 +1,8 @@
-from django.contrib import admin
-from django import forms
 from ckeditor.widgets import CKEditorWidget
-from .models import Log, Group, Comment
-from .models import User
+from django import forms
+from django.contrib import admin
 
+from .models import Comment, Group, Log, User
 
 admin.site.register(User)
 
