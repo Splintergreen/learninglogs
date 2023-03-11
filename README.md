@@ -1,6 +1,8 @@
-# learning_log
 [![Deploy & Test](https://github.com/Splintergreen/learninglogs/actions/workflows/main.yml/badge.svg)](https://github.com/Splintergreen/learninglogs/actions/workflows/main.yml)
+# learning_log
+```
 проект дорабатывается, доступен по ссылке learninglogs.ru
+```
 ### Описание
 Сайт посвящен программированию на Python.
 Здесь вы можете оставлять свои заметки по обучению для систематизации и хранения полученых знаний.

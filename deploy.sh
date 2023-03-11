@@ -4,8 +4,6 @@ set -e
 
 echo "Deployment started ..."
 
-cd coding/learninglogs/
-
 source venv/bin/activate
 echo "Virtual Env Activated !"
 
