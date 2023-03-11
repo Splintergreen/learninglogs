@@ -19,8 +19,8 @@ pushd learninglogs
 # python manage.py collectstatic --noinput
 
 echo "Running Database migration"
-python manage.py makemigrations
-python manage.py migrate
+python3 manage.py makemigrations
+python3 manage.py migrate
 # return to previous directory
 popd
 
