@@ -43,4 +43,4 @@ jobs:
           host: ${{ secrets.HOST }}
           username: ${{ secrets.USERNAME }}
           key: ${{ secrets.SSH_KEY }}
-          script: "~/coding/learninglogs/deploy.sh"
+          script: "cd ~/coding/learninglogs/ && ./deploy.sh"
