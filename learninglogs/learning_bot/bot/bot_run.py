@@ -90,9 +90,9 @@ def bot_local_start():
     bot.infinity_polling()
 
 
-if DEBUG:
-    t = Thread(target=bot_local_start)
-    t.setDaemon(True)
-    t.start()
-else:
-    bot.set_webhook(url=WEBHOOK_URL)
+# if DEBUG:
+#     t = Thread(target=bot_local_start)
+#     t.setDaemon(True)
+#     t.start()
+# else:
+#     bot.set_webhook(url=WEBHOOK_URL)
