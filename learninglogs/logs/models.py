@@ -1,7 +1,7 @@
-from django.db import models
-from django.contrib.auth.models import AbstractUser
 from ckeditor.fields import RichTextField
 from ckeditor_uploader.fields import RichTextUploadingField
+from django.contrib.auth.models import AbstractUser
+from django.db import models
 from utils.image_resize import image_resize
 
 

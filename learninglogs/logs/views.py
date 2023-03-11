@@ -1,12 +1,13 @@
-from django.shortcuts import render
-from .models import Log, Group, User, Comment
-from django.shortcuts import get_object_or_404, redirect
-from .forms import LogForm, ProfileForm, CommentForm
-from django.contrib.postgres.search import SearchVector
-from django.contrib.auth.decorators import login_required
-from utils import paginator
-from django.http import JsonResponse
 import json
+
+from django.contrib.auth.decorators import login_required
+from django.contrib.postgres.search import SearchVector
+from django.http import JsonResponse
+from django.shortcuts import get_object_or_404, redirect, render
+from utils import paginator
+
+from .forms import CommentForm, LogForm, ProfileForm
+from .models import Comment, Group, Log, User
 
 
 def index(request):

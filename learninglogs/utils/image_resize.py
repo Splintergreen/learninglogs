@@ -1,8 +1,9 @@
-from django.core.files import File
-from pathlib import Path
-from PIL import Image
 import datetime
 from io import BytesIO
+from pathlib import Path
+
+from django.core.files import File
+from PIL import Image
 
 offset = datetime.timedelta(hours=3)
 tz = datetime.timezone(offset, name='МСК')
