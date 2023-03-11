@@ -15,10 +15,10 @@ echo "New changes copied to server !"
 echo "Installing Dependencies..."
 pip install -r requirements.txt --no-input
 
-echo "Serving Static Files..."
+# echo "Serving Static Files..."
 # cd /learninglogs and remember previous directory
 pushd learninglogs
-python manage.py collectstatic --noinput
+# python manage.py collectstatic --noinput
 
 echo "Running Database migration"
 python manage.py makemigrations
