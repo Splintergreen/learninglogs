@@ -22,7 +22,9 @@ pushd learninglogs
 
 echo "Running Database migration"
 python3 manage.py makemigrations
+echo "run migrate"
 python3 manage.py migrate
+echo "before return to prev"
 # return to previous directory
 popd
 
