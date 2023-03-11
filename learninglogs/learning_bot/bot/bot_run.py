@@ -86,9 +86,10 @@ def back_callback(call: types.CallbackQuery):
 
 bot.add_custom_filter(GroupsCallbackFilter())
 
+bot.delete_webhook()
+
 
 def bot_local_start():
-    bot.delete_webhook()
     bot.infinity_polling()
 
 
