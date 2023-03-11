@@ -13,7 +13,7 @@ jobs:
     strategy:
       max-parallel: 4
       matrix:
-        python-version: ['3.9', '3.10']
+        python-version: ['3.10']
 
     steps:
     - uses: actions/checkout@v3
@@ -40,4 +40,5 @@ jobs:
           host: ${{ secrets.HOST }}
           username: ${{ secrets.USERNAME }}
           key: ${{ secrets.SSH_KEY }}
-          script: "cd ~/coding/learninglogs/ && ./deploy.sh"
+          script: "cd ~/coding/learninglogs/"
+          # && ./deploy.sh
