@@ -1,10 +1,12 @@
-from threading import Thread
+# from threading import Thread
 
 from django.shortcuts import get_object_or_404
 from logs.models import Group, Log
 from telebot import TeleBot, types
 
-from learninglogs.settings import DEBUG, TELEGRAM_TOKEN, WEBHOOK_URL
+# from learninglogs.settings import DEBUG, TELEGRAM_TOKEN, WEBHOOK_URL
+from learninglogs.settings import TELEGRAM_TOKEN
+
 
 from .bot_keyboards import back_keyboard, groups_keyboard, logs_keyboard
 from .callback import GroupsCallbackFilter, groups_factory, logs_factory
