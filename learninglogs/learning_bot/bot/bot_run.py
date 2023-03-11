@@ -1,11 +1,10 @@
-# from threading import Thread
+from threading import Thread
 
 from django.shortcuts import get_object_or_404
 from logs.models import Group, Log
 from telebot import TeleBot, types
 
-# from learninglogs.settings import DEBUG, TELEGRAM_TOKEN, WEBHOOK_URL
-from learninglogs.settings import TELEGRAM_TOKEN
+from learninglogs.settings import DEBUG, TELEGRAM_TOKEN, WEBHOOK_URL
 
 
 from .bot_keyboards import back_keyboard, groups_keyboard, logs_keyboard
@@ -93,9 +92,9 @@ def bot_local_start():
     bot.infinity_polling()
 
 
-# if DEBUG:
-#     t = Thread(target=bot_local_start)
-#     t.setDaemon(True)
-#     t.start()
-# else:
-#     bot.set_webhook(url=WEBHOOK_URL)
+if DEBUG:
+    t = Thread(target=bot_local_start)
+    t.setDaemon(True)
+    t.start()
+else:
+    bot.set_webhook(url=WEBHOOK_URL)
