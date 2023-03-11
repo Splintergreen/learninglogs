@@ -13,6 +13,7 @@ git pull origin master
 echo "New changes copied to server !"
 
 echo "Installing Dependencies..."
+pip install --upgrade pip
 pip install -r requirements.txt --no-input
 
 # echo "Serving Static Files..."
