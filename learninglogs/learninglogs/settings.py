@@ -78,7 +78,6 @@ WSGI_APPLICATION = 'learninglogs.wsgi.application'
 # EMAIL_BACKEND = 'django.core.mail.backends.filebased.EmailBackend'
 # EMAIL_FILE_PATH = os.path.join(BASE_DIR, 'sent_emails')
 
-# EMAIL_HOST = 'smtp.yandex.ru'
 EMAIL_HOST = os.getenv('EMAIL_HOST')
 EMAIL_PORT = 465
 EMAIL_HOST_USER = os.getenv('EMAIL_HOST_USER')
@@ -99,10 +98,6 @@ DATABASES = {
     }
 }
 
-STATICFILES_DIRS = (
-    os.path.join(BASE_DIR, 'static'),
-    BASE_DIR / "static",
-)
 STATICFILES_FINDERS = [
     'django.contrib.staticfiles.finders.FileSystemFinder',
     'django.contrib.staticfiles.finders.AppDirectoriesFinder',
@@ -136,7 +131,13 @@ USE_TZ = True
 
 
 STATIC_URL = 'static/'
-# STATIC_ROOT = os.path.join(BASE_DIR, 'static')
+if DEBUG:
+    STATICFILES_DIRS = (
+    os.path.join(BASE_DIR, 'static'),
+    BASE_DIR / "static",
+    )
+else:
+    STATIC_ROOT = os.path.join(BASE_DIR, 'static')
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 MEDIA_URL = 'media/'
 CKEDITOR_BASEPATH = "/static/ckeditor/ckeditor/"
