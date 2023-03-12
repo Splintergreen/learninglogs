@@ -1,3 +1,4 @@
+import time
 from threading import Thread
 
 from django.shortcuts import get_object_or_404
@@ -5,7 +6,6 @@ from logs.models import Group, Log
 from telebot import TeleBot, types
 
 from learninglogs.settings import DEBUG, TELEGRAM_TOKEN, WEBHOOK_URL
-
 
 from .bot_keyboards import back_keyboard, groups_keyboard, logs_keyboard
 from .callback import GroupsCallbackFilter, groups_factory, logs_factory
@@ -86,6 +86,7 @@ def back_callback(call: types.CallbackQuery):
 bot.add_custom_filter(GroupsCallbackFilter())
 
 bot.delete_webhook()
+time.sleep(3)
 
 
 def bot_local_start():
