@@ -7,6 +7,7 @@ from .callback import groups_factory, logs_factory
 def groups_keyboard():
     groups = Group.objects.order_by('title')
     return types.InlineKeyboardMarkup(
+        row_width=1,
         keyboard=[
             [
                 types.InlineKeyboardButton(
@@ -21,7 +22,8 @@ def groups_keyboard():
 
 def logs_keyboard(group):
     logs = group.logs.order_by('date_added')
-    return types.InlineKeyboardMarkup(
+    keyboard = types.InlineKeyboardMarkup(
+        row_width=1,
         keyboard=[
             [
                 types.InlineKeyboardButton(
@@ -30,12 +32,19 @@ def logs_keyboard(group):
                 )
             ]
             for log in logs
-        ]
-    )
+        ])
+    keyboard.add(
+                types.InlineKeyboardButton(
+                    text='⬅',
+                    callback_data='back'
+                )
+        )
+    return keyboard
 
 
 def back_keyboard():
     return types.InlineKeyboardMarkup(
+        row_width=1,
         keyboard=[
             [
                 types.InlineKeyboardButton(
