@@ -1,7 +1,8 @@
 [![Deploy & Test](https://github.com/Splintergreen/learninglogs/actions/workflows/main.yml/badge.svg)](https://github.com/Splintergreen/learninglogs/actions/workflows/main.yml)
 # learning_log
 ```
-проект дорабатывается, доступен по ссылке learninglogs.ru
+Ссылка на сайт [LearningLogs](https:/learninglogs.ru)
+Ссылка на [Telegram Bot](https://t.me/Learninglogs_bot)
 ```
 ### Описание
 Сайт посвящен программированию на Python.
@@ -10,7 +11,7 @@
 ### Технологии
 - Python 3.10
 - Django 4
-- aiogram
+- pyTelegramBotAPI
 ### Запуск проекта в dev-режиме
 - Установите и активируйте виртуальное окружение
 - Установите зависимости из файла requirements.txt
