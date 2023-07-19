@@ -9,7 +9,7 @@ class LogForm(ModelForm):
 
     class Meta:
         model = Log
-        fields = ('text', 'description', 'image',)
+        fields = ('text', 'description', 'image', 'group', )
 
 
 class ProfileForm(ModelForm):
@@ -27,4 +27,4 @@ class ProfileForm(ModelForm):
 class CommentForm(ModelForm):
     class Meta:
         model = Comment
-        fields = ('text',)
+        fields = ('text', )

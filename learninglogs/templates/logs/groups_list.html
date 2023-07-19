@@ -10,7 +10,7 @@
 <article class="post">
 	<header>
 		<div class="title">
-			<h2><a href={% url 'logs:group' group.id %}>{{ group.title }}</a></h2>
+			<h2><a href="{% url 'logs:group' group.id %}">{{ group.title }}</a></h2>
 		</div>
 		<div class="meta">
 			<time class="published" datetime="#">{{ group.date_added|date:"d E Y" }}</time>
@@ -28,7 +28,7 @@
 	
 	<footer>
 		<ul class="actions">
-			<li><a href={% url 'logs:group' group.id %} class="button large">Читать</a></li>
+			<li><a href="{% url 'logs:group' group.id %}" class="button large">Читать</a></li>
 		</ul>
 	</footer>
 </article>

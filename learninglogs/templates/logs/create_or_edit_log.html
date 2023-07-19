@@ -9,8 +9,8 @@
 {% endblock %}
 
 {% block posts %}
-<script type="text/javascript" src="{% static "ckeditor/ckeditor-init.js" %}"></script>
-<script type="text/javascript" src="{% static "ckeditor/ckeditor/ckeditor.js" %}"></script>
+<script type="text/javascript" src="{% static 'ckeditor/ckeditor-init.js' %}"></script>
+<script type="text/javascript" src="{% static 'ckeditor/ckeditor/ckeditor.js' %}"></script>
 <link rel="stylesheet" href="{% static 'auth_form/css/style.css' %}">
 
 <div class="form-panel one">
@@ -55,11 +55,10 @@
       <div>
         <label for="id_group" >Выберите тематику<span class="required text-danger" >*</span></label>
         <select name="{{ form.group.name }}" style="background-color:white;">
-          {% for instance in form.group %}
-              {{ instance }}
+          {% for group_name in form.group %}
+              {{ group_name }}
           {% endfor %}
         </select>
-        {% comment %} {{ form.group.value }} {% endcomment %}
       </div>
       <br>
         <div>

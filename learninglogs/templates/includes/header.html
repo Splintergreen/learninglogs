@@ -1,9 +1,9 @@
 {% load static %}
 {% load thumbnail %}
-<h1><a href="{% url "logs:index" %}">Главная</a></h1>
+<h1><a href="{% url 'logs:index' %}">Главная</a></h1>
 <nav class="links">
 	<ul>
-		{% comment %} <li><a href={% url "logs:groups_list" %}>Заметки</a></li> {% endcomment %}
+		{% comment %} <li><a href="{% url 'logs:groups_list' %}">Заметки</a></li> {% endcomment %}
 		{% comment %} <li><a href="#">Ссылки на документацию</a></li> {% endcomment %}
 		
         {% if user.is_authenticated %}

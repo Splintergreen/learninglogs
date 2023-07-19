@@ -19,10 +19,7 @@ class LogAdmin(admin.ModelAdmin):
 @admin.register(Group)
 class GroupAdmin(admin.ModelAdmin):
     description = forms.CharField(widget=CKEditorWidget())
-    logs = forms.ModelMultipleChoiceField(
-        queryset=Log.objects.all(), required=True
-    )
-    list_display = ('title', 'description', 'owner', 'date_added',)
+    list_display = ('title', 'description', 'owner', 'date_added', )
     search_fields = ('title', )
     list_filter = ('date_added', )
 
@@ -30,7 +27,7 @@ class GroupAdmin(admin.ModelAdmin):
 @admin.register(Comment)
 class CommentAdmin(admin.ModelAdmin):
     text = forms.CharField(widget=CKEditorWidget())
-    list_display = ('text', 'author', 'created',)
+    list_display = ('text', 'author', 'created', )
     search_fields = ('author', 'text', )
     list_filter = ('author', 'created', )
     empty_value_display = '-пусто-'

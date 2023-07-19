@@ -28,7 +28,7 @@ def groups(request):
 def group(request, pk):
     """Show a single group and all its logs."""
     group = get_object_or_404(Group, pk=pk)
-    logs = group.logs.order_by('date_added')
+    logs = Log.objects.filter(group=group.id)
     page_obj = paginator.page(logs, request)
     template = 'logs/logs_list.html'
     context = {'group': group, 'page_obj': page_obj}
@@ -38,7 +38,7 @@ def group(request, pk):
 def log(request, pk):
     """Show a single log and all its entries."""
     log = get_object_or_404(Log, pk=pk)
-    group = Group.objects.filter(logs=log.id).first()
+    group = Group.objects.filter(log=log.id)
     comments = Comment.objects.filter(log_id=log.pk)
     form = CommentForm(request.POST or None)
     template = 'logs/log.html'
@@ -85,9 +85,6 @@ def create_log(request):
         new_log = form.save(commit=False)
         new_log.owner = request.user
         new_log.save()
-        Group.logs.through.objects.create(
-            log=new_log, group_id=request.POST.get('group')
-        )
         return redirect('logs:log', pk=new_log.pk)
     context = {'form': form}
     return render(request, template, context)

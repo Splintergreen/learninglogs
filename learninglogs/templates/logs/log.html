@@ -6,17 +6,21 @@
 
 {% block current_post %}
 <header>
-  <script type="text/javascript" src="{% static "ckeditor/ckeditor-init.js" %}"></script>
-<script type="text/javascript" src="{% static "ckeditor/ckeditor/ckeditor.js" %}"></script>
+  <script type="text/javascript" src="{% static 'ckeditor/ckeditor-init.js' %}"></script>
+<script type="text/javascript" src="{% static 'ckeditor/ckeditor/ckeditor.js' %}"></script>
   <div class="title">
     <h3>{{ log.description }}</h3>
-    <p><a href="{% url 'logs:group' group.id %}">{{ group.title }}</a></p>
+    <p><a href="{% url 'logs:group' log.group.id %}">{{ log.group.title }}</a></p>
+
   </div>
   <div class="meta">
     <time class="published" datetime="#">{{ log.date_added|date:"d E Y" }}</time>
     {% thumbnail log.owner.avatar "100x100" crop="center" upscale=True as im %}
       <a href="" class="author"><span class="name">{{ log.owner.get_username }}</span><img src="{{ im.url }}" alt="" /></a>
 		{% endthumbnail %}
+    {% if log.owner == request.user  %}
+      <a href="{% url 'logs:edit_log' log.id %}">Редактировать запись</a>
+    {% endif %} 
   </div>
 </header>
 {% comment %} <span class="image featured"><img src="{% static 'images/pic01.jpg' %}" alt="" /></span> {% endcomment %}

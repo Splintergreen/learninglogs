@@ -32,7 +32,7 @@
       {% comment %} <li><a href="#" class="icon solid fa-heart">28</a></li>
       <li><a href="#" class="icon solid fa-comment">128</a></li> {% endcomment %}
       {% if comment.author == request.user  %}
-        <a href={% url 'logs:delete_comment' comment.id %} class="button small">Удалить</a>
+        <a href="{% url 'logs:delete_comment' comment.id %}" class="button small">Удалить</a>
       {% endif %}
     </ul>
   </footer>
