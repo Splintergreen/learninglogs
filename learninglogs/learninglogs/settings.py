@@ -129,6 +129,7 @@ USE_I18N = True
 
 USE_TZ = True
 
+CSRF_TRUSTED_ORIGINS = ['http://learninglogs.ru', 'https://learninglogs.ru','http://localhost','https://*.127.0.0.1']
 
 STATIC_URL = 'static/'
 if DEBUG:

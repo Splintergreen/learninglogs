@@ -1,0 +1,71 @@
+volumes:
+  static_value:
+  media_value:
+  database:
+
+services:
+  dbll:
+    image: postgres:15.1-alpine
+    container_name: learninglogs_db
+    restart: always
+    env_file:
+      - ./.env
+    volumes:
+      - database:/var/lib/postgresql/data/
+      - ./init-db.sh:/docker-entrypoint-initdb.d/init-db.sh
+    healthcheck:
+      test: ["CMD", "pg_isready", "-U", "${POSTGRES_USER}"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  webll:
+    image: ssuhotskiy/learninglogs:latest
+    container_name: learninglogs_web
+    restart: always
+    volumes:
+      - static_value:/app/static/
+      - media_value:/app/media/
+    depends_on:
+      - django-commands
+      - dbll
+    env_file:
+      - ./.env
+
+  django-commands:
+    image: ssuhotskiy/learninglogs:latest
+    container_name: learninglogs_django_commands
+    depends_on:
+      - dbll
+    volumes:
+      - static_value:/app/static/
+      - media_value:/app/media/
+    env_file:
+      - ./.env
+    command: >
+      sh -c "python manage.py collectstatic --noinput &&
+             python manage.py makemigrations &&
+             python manage.py migrate"
+    restart: on-failure
+
+  nginxll:
+    image: nginx:1.21.3-alpine
+    container_name: learninglogs_nginx
+#    restart: always
+#    restart: on-failure
+    restart: unless-stopped
+    ports:
+      - "10.8.0.2:8080:80"
+#      - "192.168.42.11:8080:80"
+    volumes:
+      - ./nginx/default.conf:/etc/nginx/conf.d/default.conf
+      - static_value:/var/html/static/
+      - media_value:/var/html/media/
+    depends_on:
+      - webll
+    healthcheck:
+      test: ["CMD", "curl", "-f", "10.8.0.2:8080"]
+      interval: 60s
+      timeout: 10s
+      retries: 10
+      start_period: 10s

@@ -83,19 +83,19 @@ def back_callback(call: types.CallbackQuery):
     )
 
 
-bot.add_custom_filter(GroupsCallbackFilter())
+# bot.add_custom_filter(GroupsCallbackFilter())
 
-bot.delete_webhook()
-time.sleep(3)
-
-
-def bot_local_start():
-    bot.infinity_polling()
+# bot.delete_webhook()
+# time.sleep(3)
 
 
-if DEBUG:
-    t = Thread(target=bot_local_start)
-    t.setDaemon(True)
-    t.start()
-else:
-    bot.set_webhook(url=WEBHOOK_URL)
+# def bot_local_start():
+#     bot.infinity_polling()
+
+
+# if DEBUG:
+#     t = Thread(target=bot_local_start)
+#     t.setDaemon(True)
+#     t.start()
+# else:
+#     bot.set_webhook(url=WEBHOOK_URL)
